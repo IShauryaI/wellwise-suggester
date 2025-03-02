@@ -1,4 +1,3 @@
-
 import { CustomButton } from "./ui/CustomButton";
 
 export function Hero() {
@@ -17,15 +16,6 @@ export function Hero() {
           <p className="text-lg text-gray mb-8 max-w-xl animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             Get personalized medicine recommendations, explore skincare solutions, and discover supplements tailored to your unique needs.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-            <CustomButton variant="primary" size="lg" onClick={() => document.getElementById("dashboard")?.scrollIntoView({ behavior: "smooth" })}>
-              Individual Dashboard
-            </CustomButton>
-            <CustomButton variant="secondary" size="lg">
-              Business Solutions
-            </CustomButton>
-          </div>
         </div>
       </div>
       

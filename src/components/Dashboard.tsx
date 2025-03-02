@@ -13,7 +13,7 @@ export function Dashboard() {
     },
     {
       icon: <UserRound className="w-8 h-8"/>,
-      title: "Medicine Reviews",
+      title: "For PharmaRep",
       description: "Share your experiences with medications and learn from others to make better treatment decisions.",
       cta: "View Reviews",
       target: ""

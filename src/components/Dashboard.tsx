@@ -1,6 +1,5 @@
-
 import { CustomButton } from "./ui/CustomButton";
-import { Pill, UserRound, Sparkles, Flask } from "lucide-react";
+import { Pill, UserRound, Sparkles, Flask2 } from "lucide-react";
 
 export function Dashboard() {
   const dashboardItems = [
@@ -26,7 +25,7 @@ export function Dashboard() {
       target: "skincare-input"
     },
     {
-      icon: <Flask className="w-8 h-8"/>,
+      icon: <Flask2 className="w-8 h-8"/>,
       title: "Vitamin & Supplement Suggestions",
       description: "Get personalized vitamin and supplement recommendations based on your lifestyle and health goals.",
       cta: "Find Your Supplements",

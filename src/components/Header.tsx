@@ -36,7 +36,7 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
             <ul className="flex space-x-8">
-              {["Home", "For Individuals", "For Businesses", "About Us", "Contact"].map((item, index) => (
+              {["Home", "For Individuals", "PharmaRep", "About Us", "Contact"].map((item, index) => (
                 <li key={index}>
                   <a 
                     href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} 
@@ -79,7 +79,7 @@ export function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 py-4 border-t border-slate-200 animate-fade-in">
             <ul className="flex flex-col space-y-4">
-              {["Home", "For Individuals", "For Businesses", "About Us", "Contact"].map((item, index) => (
+              {["Home", "For Individuals", "PharmaRep", "About Us", "Contact"].map((item, index) => (
                 <li key={index}>
                   <a 
                     href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} 

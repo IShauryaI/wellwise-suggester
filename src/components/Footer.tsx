@@ -22,7 +22,7 @@ export function Footer() {
       ]
     },
     {
-      title: "For Businesses",
+      title: "PharmaRep",
       links: [
         { name: "Business Solutions", href: "#" },
         { name: "Analytics", href: "#" },

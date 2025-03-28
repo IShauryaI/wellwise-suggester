@@ -47,22 +47,30 @@ export function Dashboard() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {dashboardItems.map((item, index) => <div key={index} style={{
-          animationDelay: `${0.1 + index * 0.1}s`
-        }} className="hover-lift-effect rounded-lg p-6 text-center bg-slate-100">
+          {dashboardItems.map((item, index) => (
+            <div 
+              key={index} 
+              style={{
+                animationDelay: `${0.1 + index * 0.1}s`
+              }} 
+              className="hover-lift-effect rounded-lg p-6 text-center bg-slate-100 flex flex-col h-full"
+            >
               <div className="feature-icon mx-auto">
                 {item.icon}
               </div>
               <h3 className="text-xl font-semibold mb-3 text-dark">
                 {item.title}
               </h3>
-              <p className="text-gray mb-6 text-sm">
+              <p className="text-gray mb-6 text-sm flex-grow">
                 {item.description}
               </p>
-              <CustomButton variant="outline" onClick={item.action}>
-                {item.cta}
-              </CustomButton>
-            </div>)}
+              <div className="mt-auto">
+                <CustomButton variant="outline" onClick={item.action}>
+                  {item.cta}
+                </CustomButton>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>;

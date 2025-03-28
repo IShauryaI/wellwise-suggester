@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CustomButton } from "@/components/ui/CustomButton";
-import { ArrowLeft, Pill, ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
+import { ArrowLeft, Pill, ChevronRight, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -278,7 +278,7 @@ const MedicineSuggestions = () => {
               className="flex flex-col items-center gap-1"
             >
               <span>Previous</span>
-              <ChevronDown className="h-4 w-4" />
+              <ChevronLeft className="h-4 w-4" />
             </CustomButton>
             
             <CustomButton 

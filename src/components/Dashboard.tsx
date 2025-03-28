@@ -26,9 +26,7 @@ export function Dashboard() {
     title: "Skincare Recommendations",
     description: "Discover the perfect skincare routine tailored to your skin type and concerns.",
     cta: "Get Personalized Plan",
-    action: () => document.getElementById('skincare-input')?.scrollIntoView({
-      behavior: "smooth"
-    })
+    action: () => navigate('/skincare-recommendations')
   }, {
     icon: <Beaker className="w-8 h-8" />,
     title: "Vitamin & Supplement Suggestions",

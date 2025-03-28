@@ -163,21 +163,21 @@ const MedicineReview = () => {
   };
   return <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow pt-24">
+      <main className="flex-grow pt-24 py-0">
         <div className="container mx-auto px-4 py-8">
           {/* Breadcrumb */}
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink href="/#dashboard">Dashboard</BreadcrumbLink>
+                
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Medicine Reviews</BreadcrumbPage>
+                
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

@@ -7,12 +7,14 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Star, ThumbsUp } from "lucide-react";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
+
 type Rating = {
   effectiveness: number;
   sideEffects: number;
   easeOfUse: number;
   satisfaction: number;
 };
+
 type Review = {
   id: string;
   reviewer: string;
@@ -24,6 +26,7 @@ type Review = {
   wouldRecommend: string;
   helpfulCount: number;
 };
+
 const MedicineReview = () => {
   const navigate = useNavigate();
   const [medicineName, setMedicineName] = useState("");
@@ -84,12 +87,14 @@ const MedicineReview = () => {
     wouldRecommend: "Yes",
     helpfulCount: 31
   }]);
+
   const handleSetRating = (type: keyof Rating, value: number) => {
     setRatings(prev => ({
       ...prev,
       [type]: value
     }));
   };
+
   const renderStarRating = (type: keyof Rating, label: string) => {
     const currentRating = ratings[type];
     return <div className="mb-4">
@@ -103,14 +108,17 @@ const MedicineReview = () => {
         </div>
       </div>;
   };
+
   const renderReadOnlyStars = (count: number) => {
     return <div className="flex">
         {[1, 2, 3, 4, 5].map(star => <Star key={star} className={`h-4 w-4 ${star <= count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />)}
       </div>;
   };
+
   const handleMarkHelpful = (reviewId: string) => {
     toast.success("Thank you for your feedback!");
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!medicineName.trim()) {
@@ -149,6 +157,7 @@ const MedicineReview = () => {
       });
     }, 1500);
   };
+
   return <div className="container mx-auto px-4 py-0">
       <Breadcrumb className="mb-6">
         
@@ -215,8 +224,7 @@ const MedicineReview = () => {
           </div>
         </form>
       </div>
-      
-      
     </div>;
 };
+
 export default MedicineReview;

@@ -1,4 +1,3 @@
-
 import { SupplementRecommendation, VitaminRecommendations } from "@/types/vitamins";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -150,6 +149,8 @@ export function VitaminResults({ results }: VitaminResultsProps) {
           Remember: These recommendations are general suggestions based on your profile. Always consult with a healthcare professional before starting any new supplement regimen, especially if you have health conditions or are taking medications.
         </p>
       </div>
+      
+      {/* The AdditionalInfo component is now added via the PageLayout component */}
     </div>
   );
 }

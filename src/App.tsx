@@ -19,21 +19,30 @@ import NotFound from "./pages/NotFound";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { BackButton } from "./components/BackButton";
+import { AdditionalInfo } from "./components/AdditionalInfo";
 
 const queryClient = new QueryClient();
 
 // Layout component that wraps all pages with common elements
 const PageLayout = ({
   children,
-  showBackButton = true
-}) => <div className="min-h-screen flex flex-col">
+  showBackButton = true,
+  showAdditionalInfo = true
+}) => (
+  <div className="min-h-screen flex flex-col">
     <Header />
     <main className="flex-grow pt-16 pb-16">
       {showBackButton && <BackButton />}
       {children}
+      {showAdditionalInfo && (
+        <div className="container mx-auto px-4">
+          <AdditionalInfo />
+        </div>
+      )}
     </main>
     <Footer />
-  </div>;
+  </div>
+);
 
 // Layout for authentication pages without header, footer, or back button
 const AuthLayout = ({ children }) => (
@@ -60,13 +69,13 @@ const App = () => (
           <Route path="/medicine-suggestions" element={<PageLayout>
                 <MedicineSuggestions />
               </PageLayout>} />
-          <Route path="/medicine-review" element={<PageLayout>
+          <Route path="/medicine-review" element={<PageLayout showAdditionalInfo={false}>
                 <MedicineReview />
               </PageLayout>} />
           <Route path="/skincare-recommendations" element={<PageLayout>
                 <SkincareRecommendations />
               </PageLayout>} />
-          <Route path="/vitamin-supplements" element={<PageLayout>
+          <Route path="/vitamin-supplements" element={<PageLayout showAdditionalInfo={false}>
                 <VitaminSupplements />
               </PageLayout>} />
           <Route path="/pharma-rep" element={<PageLayout>

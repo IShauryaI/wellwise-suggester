@@ -10,8 +10,21 @@ import MedicineReview from "./pages/MedicineReview";
 import SkincareRecommendations from "./pages/SkincareRecommendations";
 import VitaminSupplements from "./pages/VitaminSupplements";
 import NotFound from "./pages/NotFound";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { BackButton } from "./components/BackButton";
 
 const queryClient = new QueryClient();
+
+// Layout component that wraps all pages with common elements
+const PageLayout = ({ children, showBackButton = true }) => (
+  <div className="min-h-screen flex flex-col">
+    <Header />
+    {showBackButton && <BackButton />}
+    <div className="flex-grow pt-24">{children}</div>
+    <Footer />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -21,12 +34,39 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/medicine-suggestions" element={<MedicineSuggestions />} />
-          <Route path="/medicine-review" element={<MedicineReview />} />
-          <Route path="/skincare-recommendations" element={<SkincareRecommendations />} />
+          <Route 
+            path="/medicine-suggestions" 
+            element={
+              <PageLayout>
+                <MedicineSuggestions />
+              </PageLayout>
+            } 
+          />
+          <Route 
+            path="/medicine-review" 
+            element={
+              <PageLayout>
+                <MedicineReview />
+              </PageLayout>
+            } 
+          />
+          <Route 
+            path="/skincare-recommendations" 
+            element={
+              <PageLayout>
+                <SkincareRecommendations />
+              </PageLayout>
+            } 
+          />
           <Route path="/vitamin-supplements" element={<VitaminSupplements />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route 
+            path="*" 
+            element={
+              <PageLayout>
+                <NotFound />
+              </PageLayout>
+            } 
+          />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

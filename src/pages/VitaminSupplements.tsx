@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { BackButton } from "@/components/BackButton";
 import { VitaminForm } from "@/components/vitamins/VitaminForm";
 import { VitaminResults } from "@/components/vitamins/VitaminResults";
 import { VitaminProfile, VitaminRecommendations } from "@/types/vitamins";
@@ -234,7 +235,9 @@ export default function VitaminSupplements() {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-grow pt-24 pb-16 bg-light">
+      <BackButton />
+      
+      <main className="flex-grow pb-16 bg-light">
         <div className="container mx-auto px-4">
           <div className="mb-8">
             <div className="text-center mb-12">

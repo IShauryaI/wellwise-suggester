@@ -69,13 +69,13 @@ const App = () => (
           <Route path="/medicine-suggestions" element={<PageLayout>
                 <MedicineSuggestions />
               </PageLayout>} />
-          <Route path="/medicine-review" element={<PageLayout showAdditionalInfo={false}>
+          <Route path="/medicine-review" element={<PageLayout>
                 <MedicineReview />
               </PageLayout>} />
           <Route path="/skincare-recommendations" element={<PageLayout>
                 <SkincareRecommendations />
               </PageLayout>} />
-          <Route path="/vitamin-supplements" element={<PageLayout showAdditionalInfo={false}>
+          <Route path="/vitamin-supplements" element={<PageLayout>
                 <VitaminSupplements />
               </PageLayout>} />
           <Route path="/pharma-rep" element={<PageLayout>

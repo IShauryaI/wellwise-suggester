@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { CustomButton } from "@/components/ui/CustomButton";
-import { ArrowLeft, Pill } from "lucide-react";
+import { ArrowLeft, Pill, ChevronRight, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Medicine {
   name: string;
@@ -12,25 +15,108 @@ interface Medicine {
   description: string;
 }
 
+interface QuestionnaireData {
+  symptoms: string;
+  age: string;
+  allergies: string;
+  currentMedications: string;
+  preExistingConditions: string;
+  hereditaryConditions: string;
+}
+
 const MedicineSuggestions = () => {
-  const [symptoms, setSymptoms] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState("");
+  const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
   const [recommendedMedicines, setRecommendedMedicines] = useState<Medicine[]>([]);
+  const [questionnaireData, setQuestionnaireData] = useState<QuestionnaireData>({
+    symptoms: "",
+    age: "",
+    allergies: "",
+    currentMedications: "",
+    preExistingConditions: "",
+    hereditaryConditions: ""
+  });
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    if (!symptoms.trim()) {
-      toast.error("Please enter your symptoms");
-      setIsLoading(false);
+  const questions = [
+    {
+      id: "symptoms",
+      question: "What symptoms are you facing?",
+      placeholder: "e.g., Fever, headache, sore throat, etc.",
+      type: "textarea",
+      required: true
+    },
+    {
+      id: "age",
+      question: "What is your age?",
+      placeholder: "e.g., 35",
+      type: "input",
+      required: true
+    },
+    {
+      id: "allergies",
+      question: "Do you have any allergies?",
+      placeholder: "e.g., Penicillin, peanuts, etc. (Enter 'None' if not applicable)",
+      type: "textarea",
+      required: true
+    },
+    {
+      id: "currentMedications",
+      question: "Are you currently taking any medications?",
+      placeholder: "e.g., Lisinopril, Metformin, etc. (Enter 'None' if not applicable)",
+      type: "textarea",
+      required: true
+    },
+    {
+      id: "preExistingConditions",
+      question: "Do you have any pre-existing medical conditions?",
+      placeholder: "e.g., Diabetes, hypertension, etc. (Enter 'None' if not applicable)",
+      type: "textarea",
+      required: true
+    },
+    {
+      id: "hereditaryConditions",
+      question: "Do you have any hereditary conditions in your family?",
+      placeholder: "e.g., Heart disease, cancer, etc. (Enter 'None' if not applicable)",
+      type: "textarea",
+      required: false
+    }
+  ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setQuestionnaireData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleNextStep = () => {
+    const currentQuestion = questions[currentStep];
+    if (currentQuestion.required && !questionnaireData[currentQuestion.id as keyof QuestionnaireData]) {
+      toast.error(`Please answer the question before proceeding.`);
       return;
     }
+    
+    if (currentStep < questions.length - 1) {
+      setCurrentStep(prev => prev + 1);
+    } else {
+      handleSubmit();
+    }
+  };
 
+  const handlePrevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1);
+    }
+  };
+
+  const handleSubmit = () => {
+    setIsLoading(true);
+    
     setTimeout(() => {
-      const symptomsArray = symptoms.toLowerCase().split(/[,\s]+/).filter(s => s.length > 2);
+      const symptomsArray = questionnaireData.symptoms.toLowerCase().split(/[,\s]+/).filter(s => s.length > 2);
       const detectedSymptoms = [];
 
       if (symptomsArray.some(s => s.includes("fever") || s.includes("temperature") || s.includes("hot"))) {
@@ -55,21 +141,44 @@ const MedicineSuggestions = () => {
       setResults(detectedSymptoms);
 
       const medicineRecommendations: Medicine[] = [];
-      if (detectedSymptoms.includes("fever") || detectedSymptoms.includes("headache")) {
-        medicineRecommendations.push({
-          name: "Paracetamol",
-          dosage: "500-1000 mg",
-          frequency: "Every 4-6 hours as needed (max 4g per day)",
-          description: "For relief of fever, headaches and general pain. Helps reduce body temperature and alleviate discomfort."
-        });
-        medicineRecommendations.push({
-          name: "Ibuprofen",
-          dosage: "200-400 mg",
-          frequency: "Every 6-8 hours as needed with food",
-          description: "Anti-inflammatory medication that reduces fever, pain, and inflammation. Effective for headaches and body aches."
-        });
+      
+      const age = parseInt(questionnaireData.age);
+      let paracetamolDosage = "500-1000 mg";
+      let ibuprofenDosage = "200-400 mg";
+      
+      if (age < 12) {
+        paracetamolDosage = "250-500 mg";
+        ibuprofenDosage = "100-200 mg";
+      } else if (age > 65) {
+        paracetamolDosage = "500 mg";
+        ibuprofenDosage = "200 mg";
       }
-      if (detectedSymptoms.includes("sore throat")) {
+      
+      const hasAllergyTo = (medication: string) => {
+        return questionnaireData.allergies.toLowerCase().includes(medication.toLowerCase());
+      };
+      
+      if (detectedSymptoms.includes("fever") || detectedSymptoms.includes("headache")) {
+        if (!hasAllergyTo("paracetamol")) {
+          medicineRecommendations.push({
+            name: "Paracetamol",
+            dosage: paracetamolDosage,
+            frequency: "Every 4-6 hours as needed (max 4g per day)",
+            description: "For relief of fever, headaches and general pain. Helps reduce body temperature and alleviate discomfort."
+          });
+        }
+        
+        if (!hasAllergyTo("ibuprofen") && !hasAllergyTo("nsaid")) {
+          medicineRecommendations.push({
+            name: "Ibuprofen",
+            dosage: ibuprofenDosage,
+            frequency: "Every 6-8 hours as needed with food",
+            description: "Anti-inflammatory medication that reduces fever, pain, and inflammation. Effective for headaches and body aches."
+          });
+        }
+      }
+      
+      if (detectedSymptoms.includes("sore throat") && !hasAllergyTo("benzocaine")) {
         medicineRecommendations.push({
           name: "Benzocaine Lozenges",
           dosage: "1 lozenge",
@@ -77,7 +186,8 @@ const MedicineSuggestions = () => {
           description: "Contains a local anesthetic that numbs the throat, providing temporary relief from sore throat pain."
         });
       }
-      if (detectedSymptoms.includes("coughing")) {
+      
+      if (detectedSymptoms.includes("coughing") && !hasAllergyTo("dextromethorphan")) {
         medicineRecommendations.push({
           name: "Dextromethorphan Syrup",
           dosage: "10-20 ml",
@@ -85,7 +195,8 @@ const MedicineSuggestions = () => {
           description: "Cough suppressant that helps reduce the urge to cough. Best for dry, non-productive coughs."
         });
       }
-      if (detectedSymptoms.includes("nasal congestion")) {
+      
+      if (detectedSymptoms.includes("nasal congestion") && !hasAllergyTo("pseudoephedrine")) {
         medicineRecommendations.push({
           name: "Pseudoephedrine",
           dosage: "60 mg",
@@ -94,7 +205,7 @@ const MedicineSuggestions = () => {
         });
       }
 
-      if (medicineRecommendations.length < 4) {
+      if (medicineRecommendations.length < 2) {
         medicineRecommendations.push({
           name: "Multivitamin Complex",
           dosage: "1 tablet",
@@ -102,9 +213,97 @@ const MedicineSuggestions = () => {
           description: "Supports immune function and overall health during recovery with essential vitamins and minerals."
         });
       }
+      
       setRecommendedMedicines(medicineRecommendations);
       setIsLoading(false);
     }, 2000);
+  };
+
+  const renderQuestionStep = () => {
+    const currentQuestion = questions[currentStep];
+    
+    return (
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="mb-4 flex justify-between">
+            <div className="text-sm text-gray-500">
+              Step {currentStep + 1} of {questions.length}
+            </div>
+            <div className="text-sm text-gray-500">
+              {Math.round(((currentStep + 1) / questions.length) * 100)}% Complete
+            </div>
+          </div>
+          
+          <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
+            <div 
+              className="bg-primary h-2 rounded-full" 
+              style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
+            ></div>
+          </div>
+          
+          <div className="mb-6">
+            <Label htmlFor={currentQuestion.id} className="block text-lg font-medium text-dark mb-3">
+              {currentQuestion.question}
+            </Label>
+            
+            {currentQuestion.type === 'textarea' ? (
+              <Textarea 
+                id={currentQuestion.id}
+                name={currentQuestion.id}
+                className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder={currentQuestion.placeholder}
+                rows={4}
+                value={questionnaireData[currentQuestion.id as keyof QuestionnaireData]}
+                onChange={handleInputChange}
+                required={currentQuestion.required}
+              />
+            ) : (
+              <Input
+                id={currentQuestion.id}
+                name={currentQuestion.id}
+                className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder={currentQuestion.placeholder}
+                value={questionnaireData[currentQuestion.id as keyof QuestionnaireData]}
+                onChange={handleInputChange}
+                required={currentQuestion.required}
+              />
+            )}
+          </div>
+
+          <div className="flex justify-between">
+            <CustomButton 
+              variant="outline" 
+              onClick={handlePrevStep}
+              disabled={currentStep === 0}
+            >
+              <ChevronLeft className="mr-2 h-4 w-4" />
+              Previous
+            </CustomButton>
+            
+            <CustomButton 
+              variant="primary" 
+              onClick={handleNextStep}
+              isLoading={isLoading && currentStep === questions.length - 1}
+            >
+              {currentStep === questions.length - 1 ? 'Get AI Suggestions' : 'Next'}
+              {currentStep < questions.length - 1 && <ChevronRight className="ml-2 h-4 w-4" />}
+            </CustomButton>
+          </div>
+        </div>
+
+        <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
+          <h3 className="text-lg font-semibold mb-3 text-dark">
+            Important Disclaimer
+          </h3>
+          <p className="text-gray text-sm">
+            The information provided is for general informational purposes only and should 
+            not be considered as medical advice. Always consult with a qualified healthcare 
+            provider before starting any medication. Our AI suggestions are based on pattern 
+            recognition and not a substitute for professional diagnosis.
+          </p>
+        </div>
+      </div>
+    );
   };
 
   const productCategories = [{
@@ -196,62 +395,29 @@ const MedicineSuggestions = () => {
       <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
         <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Suggestions</h1>
         <p className="text-gray-600 mb-6">
-          Describe your symptoms in detail, and our AI will analyze them to provide personalized medication suggestions.
+          Answer a few questions about your health, and our AI will analyze them to provide personalized medication suggestions.
         </p>
       </div>
       
       {results.length === 0 ? (
-        <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <div className="mb-6">
-              <label htmlFor="symptoms" className="block text-sm font-medium text-dark mb-2">
-                Describe your symptoms:
-              </label>
-              <textarea id="symptoms" className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="e.g., Fever, headache, sore throat, etc." rows={4} value={symptoms} onChange={e => setSymptoms(e.target.value)} required />
-            </div>
-
-            <div className="mb-6">
-              <label htmlFor="additionalInfo" className="block text-sm font-medium text-dark mb-2">
-                Additional Information (optional):
-              </label>
-              <textarea id="additionalInfo" className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="e.g., Allergies, current medications, medical history, etc." rows={3} value={additionalInfo} onChange={e => setAdditionalInfo(e.target.value)} />
-            </div>
-
-            <div className="flex justify-end">
-              <CustomButton variant="primary" type="submit" isLoading={isLoading}>
-                Get AI Suggestions
-              </CustomButton>
-            </div>
-          </form>
-
-          <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
-            <h3 className="text-lg font-semibold mb-3 text-dark">
-              Important Disclaimer
-            </h3>
-            <p className="text-gray text-sm">
-              The information provided is for general informational purposes only and should 
-              not be considered as medical advice. Always consult with a qualified healthcare 
-              provider before starting any medication. Our AI suggestions are based on pattern 
-              recognition and not a substitute for professional diagnosis.
-            </p>
-          </div>
-        </div>
+        renderQuestionStep()
       ) : (
         <>
           <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
             <button onClick={() => {
               setResults([]);
               setRecommendedMedicines([]);
+              setCurrentStep(0);
             }} className="flex items-center text-gray mb-6 hover:text-primary transition-colors">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Symptoms Form
+              Back to Health Questionnaire
             </button>
 
             <h1 className="text-3xl font-bold text-dark mb-4">
-              Recommended Medications Based on Your Symptoms
+              Recommended Medications Based on Your Health Profile
             </h1>
             <p className="text-gray mb-6">
-              Our AI has analyzed your symptoms and found the following recommended treatments. 
+              Our AI has analyzed your health information and found the following recommended treatments. 
               Always consult with a healthcare professional before starting any new medication.
             </p>
 

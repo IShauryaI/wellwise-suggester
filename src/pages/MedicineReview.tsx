@@ -216,57 +216,7 @@ const MedicineReview = () => {
         </form>
       </div>
       
-      <div>
-        <h2 id="reviews" className="text-2xl font-bold mb-4">
-          What others are saying
-        </h2>
-        {reviews.map(review => <div key={review.id} className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-4">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="text-xl font-semibold text-primary">{review.medicineName}</h3>
-                <p className="text-gray-600 text-sm">Condition: {review.condition}</p>
-              </div>
-              <div className="text-right">
-                <p className="text-gray-700 font-medium">
-                  {review.reviewer}
-                </p>
-                <p className="text-gray-500 text-sm">{review.date}</p>
-              </div>
-            </div>
-            <div className="mb-4">
-              <p className="text-gray-800">{review.text}</p>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium text-sm">Ratings:</p>
-                <div className="flex items-center gap-2">
-                  <span>Effectiveness:</span>
-                  {renderReadOnlyStars(review.ratings.effectiveness)}
-                </div>
-                <div className="flex items-center gap-2">
-                  <span>Side Effects:</span>
-                  {renderReadOnlyStars(review.ratings.sideEffects)}
-                </div>
-                <div className="flex items-center gap-2">
-                  <span>Ease of Use:</span>
-                  {renderReadOnlyStars(review.ratings.easeOfUse)}
-                </div>
-                <div className="flex items-center gap-2">
-                  <span>Satisfaction:</span>
-                  {renderReadOnlyStars(review.ratings.satisfaction)}
-                </div>
-                <p className="mt-2">
-                  <span className="font-medium text-sm">Would Recommend:</span>{" "}
-                  {review.wouldRecommend}
-                </p>
-              </div>
-              <Button variant="ghost" size="sm" onClick={() => handleMarkHelpful(review.id)}>
-                <ThumbsUp className="h-4 w-4 mr-2" />
-                Helpful ({review.helpfulCount})
-              </Button>
-            </div>
-          </div>)}
-      </div>
+      
     </div>;
 };
 export default MedicineReview;

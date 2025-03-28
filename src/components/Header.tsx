@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, Moon, Sun } from "lucide-react";
+import { Heart, Moon, Sun, Smile } from "lucide-react";
 import { Toggle } from "./ui/toggle";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Switch } from "./ui/switch";
@@ -45,6 +45,13 @@ export function Header() {
             <Heart className="h-7 w-7" strokeWidth={2.5} />
             <span className="text-xl font-bold">WellBeing</span>
           </Link>
+          
+          {/* Welcome Message with Emoji */}
+          <div className="hidden md:flex items-center mr-4">
+            <span className="text-sm font-medium text-dark/80 dark:text-white/80">
+              Welcome <Smile className="inline h-4 w-4 text-yellow-500" />
+            </span>
+          </div>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
@@ -107,6 +114,12 @@ export function Header() {
                   </Link>
                 </li>
               ))}
+              <li className="pt-2 flex justify-center">
+                {/* Welcome Message in Mobile Menu */}
+                <span className="text-sm font-medium text-dark/80 dark:text-white/80 mb-2">
+                  Welcome <Smile className="inline h-4 w-4 text-yellow-500" />
+                </span>
+              </li>
               <li className="pt-2 flex justify-center">
                 <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-2 py-1">
                   <Sun className="h-4 w-4 text-yellow-500" />

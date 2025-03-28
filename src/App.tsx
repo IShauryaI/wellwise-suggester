@@ -13,6 +13,7 @@ import VitaminSupplements from "./pages/VitaminSupplements";
 import PharmaRep from "./pages/PharmaRep";
 import PharmaRepLogin from "./pages/PharmaRepLogin";
 import PharmaRepSignup from "./pages/PharmaRepSignup";
+import PharmaRepDashboard from "./pages/PharmaRepDashboard";
 import NotFound from "./pages/NotFound";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -51,6 +52,9 @@ const App = () => (
         <Route path="/signup" element={<AuthLayout><Signup /></AuthLayout>} />
         <Route path="/pharma-rep-login" element={<AuthLayout><PharmaRepLogin /></AuthLayout>} />
         <Route path="/pharma-rep-signup" element={<AuthLayout><PharmaRepSignup /></AuthLayout>} />
+        <Route path="/pharma-rep-dashboard" element={<PageLayout showBackButton={false}>
+              <PharmaRepDashboard />
+            </PageLayout>} />
         <Route path="/medicine-suggestions" element={<PageLayout>
               <MedicineSuggestions />
             </PageLayout>} />

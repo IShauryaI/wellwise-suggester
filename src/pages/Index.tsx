@@ -5,7 +5,6 @@ import { Hero } from "@/components/Hero";
 import { Dashboard } from "@/components/Dashboard";
 import { InputSection } from "@/components/InputSection";
 import { Features } from "@/components/Features";
-import { Footer } from "@/components/Footer";
 
 const Index = () => {
   // Add page load animations
@@ -44,7 +43,6 @@ const Index = () => {
         <InputSection />
         <Features />
       </main>
-      <Footer />
     </div>
   );
 };

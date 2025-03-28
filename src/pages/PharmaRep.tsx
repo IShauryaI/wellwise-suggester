@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import { CustomButton } from "@/components/ui/CustomButton";
 
 const PharmaRep = () => {
@@ -15,12 +16,16 @@ const PharmaRep = () => {
       
       <div className="max-w-3xl mx-auto text-center">
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <CustomButton variant="outline" size="lg">
-            Login
-          </CustomButton>
-          <CustomButton variant="primary" size="lg">
-            Sign Up
-          </CustomButton>
+          <Link to="/pharma-rep-login">
+            <CustomButton variant="outline" size="lg">
+              Login
+            </CustomButton>
+          </Link>
+          <Link to="/pharma-rep-signup">
+            <CustomButton variant="primary" size="lg">
+              Sign Up
+            </CustomButton>
+          </Link>
         </div>
       </div>
     </div>

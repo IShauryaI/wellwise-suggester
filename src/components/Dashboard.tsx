@@ -1,36 +1,39 @@
 
 import { CustomButton } from "./ui/CustomButton";
 import { Pill, UserRound, Sparkles, Beaker } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
+  const navigate = useNavigate();
+  
   const dashboardItems = [
     {
       icon: <Pill className="w-8 h-8"/>,
       title: "Medicine Suggestions",
       description: "Get personalized medication suggestions based on your symptoms, backed by AI-powered analysis.",
       cta: "Get Started",
-      target: "medicine-input"
+      action: () => navigate('/medicine-suggestions')
     },
     {
       icon: <UserRound className="w-8 h-8"/>,
       title: "For PharmaRep",
       description: "Share your experiences with medications and learn from others to make better treatment decisions.",
       cta: "View Reviews",
-      target: ""
+      action: () => console.log("PharmaRep clicked")
     },
     {
       icon: <Sparkles className="w-8 h-8"/>,
       title: "Skincare Recommendations",
       description: "Discover the perfect skincare routine tailored to your skin type and concerns.",
       cta: "Get Personalized Plan",
-      target: "skincare-input"
+      action: () => document.getElementById('skincare-input')?.scrollIntoView({ behavior: "smooth" })
     },
     {
       icon: <Beaker className="w-8 h-8"/>,
       title: "Vitamin & Supplement Suggestions",
       description: "Get personalized vitamin and supplement recommendations based on your lifestyle and health goals.",
       cta: "Find Your Supplements",
-      target: "vitamin-input"
+      action: () => document.getElementById('vitamin-input')?.scrollIntoView({ behavior: "smooth" })
     }
   ];
 
@@ -67,7 +70,7 @@ export function Dashboard() {
               </p>
               <CustomButton 
                 variant="outline"
-                onClick={() => item.target && document.getElementById(item.target)?.scrollIntoView({ behavior: "smooth" })}
+                onClick={item.action}
               >
                 {item.cta}
               </CustomButton>

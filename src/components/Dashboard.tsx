@@ -1,8 +1,11 @@
+
 import { CustomButton } from "./ui/CustomButton";
 import { Pill, UserRound, Sparkles, Beaker, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 export function Dashboard() {
   const navigate = useNavigate();
+  
   const dashboardItems = [{
     icon: <Pill className="w-8 h-8" />,
     title: "Medicine Suggestions",
@@ -32,10 +35,9 @@ export function Dashboard() {
     title: "Vitamin & Supplement Suggestions",
     description: "Get personalized vitamin and supplement recommendations based on your lifestyle and health goals.",
     cta: "Find Your Supplements",
-    action: () => document.getElementById('vitamin-input')?.scrollIntoView({
-      behavior: "smooth"
-    })
+    action: () => navigate('/vitamin-supplements')
   }];
+  
   return <section id="dashboard" className="py-20 bg-light">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-14">

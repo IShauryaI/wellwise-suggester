@@ -272,7 +272,7 @@ const MedicineSuggestions = () => {
 
           <div className="flex justify-between">
             <CustomButton 
-              variant="outline" 
+              variant="primary" 
               onClick={handlePrevStep}
               disabled={currentStep === 0}
             >

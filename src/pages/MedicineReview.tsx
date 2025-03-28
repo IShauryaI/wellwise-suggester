@@ -189,16 +189,8 @@ const MedicineReview = () => {
               Share your experiences with medications and help others make informed decisions. Browse reviews from other users to learn about effectiveness, side effects, and overall satisfaction with various medications.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button onClick={() => document.getElementById('review-form')?.scrollIntoView({
-              behavior: "smooth"
-            })}>
-                Write a Review
-              </Button>
-              <Button variant="outline" onClick={() => document.getElementById('reviews')?.scrollIntoView({
-              behavior: "smooth"
-            })}>
-                Read Reviews
-              </Button>
+              
+              
             </div>
           </div>
           

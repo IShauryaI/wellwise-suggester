@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { ArrowLeft, Pill } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+
 interface Medicine {
   name: string;
   dosage: string;
   frequency: string;
   description: string;
 }
+
 const MedicineSuggestions = () => {
   const [symptoms, setSymptoms] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
@@ -19,6 +19,7 @@ const MedicineSuggestions = () => {
   const [results, setResults] = useState<string[]>([]);
   const [recommendedMedicines, setRecommendedMedicines] = useState<Medicine[]>([]);
   const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -28,12 +29,10 @@ const MedicineSuggestions = () => {
       return;
     }
 
-    // Simulate AI processing and get medicine recommendations
     setTimeout(() => {
       const symptomsArray = symptoms.toLowerCase().split(/[,\s]+/).filter(s => s.length > 2);
       const detectedSymptoms = [];
 
-      // Detect symptoms from input
       if (symptomsArray.some(s => s.includes("fever") || s.includes("temperature") || s.includes("hot"))) {
         detectedSymptoms.push("fever");
       }
@@ -50,13 +49,11 @@ const MedicineSuggestions = () => {
         detectedSymptoms.push("nasal congestion");
       }
 
-      // Ensure we have at least some default symptoms if none were detected
       if (detectedSymptoms.length === 0) {
         detectedSymptoms.push("general discomfort");
       }
       setResults(detectedSymptoms);
 
-      // Generate medicine recommendations based on symptoms
       const medicineRecommendations: Medicine[] = [];
       if (detectedSymptoms.includes("fever") || detectedSymptoms.includes("headache")) {
         medicineRecommendations.push({
@@ -97,7 +94,6 @@ const MedicineSuggestions = () => {
         });
       }
 
-      // Add a general recommendation if we don't have enough specific ones
       if (medicineRecommendations.length < 4) {
         medicineRecommendations.push({
           name: "Multivitamin Complex",
@@ -110,6 +106,7 @@ const MedicineSuggestions = () => {
       setIsLoading(false);
     }, 2000);
   };
+
   const productCategories = [{
     title: "For Fever and Pain Relief",
     products: [{
@@ -184,7 +181,6 @@ const MedicineSuggestions = () => {
     }]
   }];
 
-  // Render stars based on rating
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -194,201 +190,192 @@ const MedicineSuggestions = () => {
     }
     return stars;
   };
-  return <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow pt-24 pb-16">
-        <div className="container mx-auto px-4 md:px-6">
-          {/* Breadcrumb */}
-          
 
-          {results.length === 0 ? <div className="max-w-3xl mx-auto">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="bg-primary-light p-2 rounded-full">
-                  <Pill className="h-6 w-6 text-primary" />
-                </div>
-                <h1 className="text-3xl font-bold text-dark">Medicine Suggestions</h1>
-              </div>
-              
-              <p className="text-gray mb-8">
-                Describe your symptoms in detail, and our AI will analyze them to provide personalized medication suggestions.
-              </p>
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Suggestions</h1>
+        <p className="text-gray-600 mb-6">
+          Describe your symptoms in detail, and our AI will analyze them to provide personalized medication suggestions.
+        </p>
+      </div>
+      
+      {results.length === 0 ? (
+        <div className="max-w-3xl mx-auto">
+          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div className="mb-6">
+              <label htmlFor="symptoms" className="block text-sm font-medium text-dark mb-2">
+                Describe your symptoms:
+              </label>
+              <textarea id="symptoms" className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="e.g., Fever, headache, sore throat, etc." rows={4} value={symptoms} onChange={e => setSymptoms(e.target.value)} required />
+            </div>
 
-              <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <div className="mb-6">
-                  <label htmlFor="symptoms" className="block text-sm font-medium text-dark mb-2">
-                    Describe your symptoms:
-                  </label>
-                  <textarea id="symptoms" className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="e.g., Fever, headache, sore throat, etc." rows={4} value={symptoms} onChange={e => setSymptoms(e.target.value)} required />
-                </div>
+            <div className="mb-6">
+              <label htmlFor="additionalInfo" className="block text-sm font-medium text-dark mb-2">
+                Additional Information (optional):
+              </label>
+              <textarea id="additionalInfo" className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="e.g., Allergies, current medications, medical history, etc." rows={3} value={additionalInfo} onChange={e => setAdditionalInfo(e.target.value)} />
+            </div>
 
-                <div className="mb-6">
-                  <label htmlFor="additionalInfo" className="block text-sm font-medium text-dark mb-2">
-                    Additional Information (optional):
-                  </label>
-                  <textarea id="additionalInfo" className="w-full px-4 py-3 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="e.g., Allergies, current medications, medical history, etc." rows={3} value={additionalInfo} onChange={e => setAdditionalInfo(e.target.value)} />
-                </div>
+            <div className="flex justify-end">
+              <CustomButton variant="primary" type="submit" isLoading={isLoading}>
+                Get AI Suggestions
+              </CustomButton>
+            </div>
+          </form>
 
-                <div className="flex justify-end">
-                  <CustomButton variant="primary" type="submit" isLoading={isLoading}>
-                    Get AI Suggestions
-                  </CustomButton>
-                </div>
-              </form>
-
-              <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
-                <h3 className="text-lg font-semibold mb-3 text-dark">
-                  Important Disclaimer
-                </h3>
-                <p className="text-gray text-sm">
-                  The information provided is for general informational purposes only and should 
-                  not be considered as medical advice. Always consult with a qualified healthcare 
-                  provider before starting any medication. Our AI suggestions are based on pattern 
-                  recognition and not a substitute for professional diagnosis.
-                </p>
-              </div>
-            </div> : <>
-              {/* Recommendation Hero */}
-              <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <button onClick={() => {
+          <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
+            <h3 className="text-lg font-semibold mb-3 text-dark">
+              Important Disclaimer
+            </h3>
+            <p className="text-gray text-sm">
+              The information provided is for general informational purposes only and should 
+              not be considered as medical advice. Always consult with a qualified healthcare 
+              provider before starting any medication. Our AI suggestions are based on pattern 
+              recognition and not a substitute for professional diagnosis.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <button onClick={() => {
               setResults([]);
               setRecommendedMedicines([]);
             }} className="flex items-center text-gray mb-6 hover:text-primary transition-colors">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Symptoms Form
-                </button>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Symptoms Form
+            </button>
 
-                <h1 className="text-3xl font-bold text-dark mb-4">
-                  Recommended Medications Based on Your Symptoms
-                </h1>
-                <p className="text-gray mb-6">
-                  Our AI has analyzed your symptoms and found the following recommended treatments. 
-                  Always consult with a healthcare professional before starting any new medication.
-                </p>
+            <h1 className="text-3xl font-bold text-dark mb-4">
+              Recommended Medications Based on Your Symptoms
+            </h1>
+            <p className="text-gray mb-6">
+              Our AI has analyzed your symptoms and found the following recommended treatments. 
+              Always consult with a healthcare professional before starting any new medication.
+            </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {results.map((symptom, index) => <div key={index} className="bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium">
-                      {symptom.charAt(0).toUpperCase() + symptom.slice(1)}
-                    </div>)}
-                </div>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {results.map((symptom, index) => <div key={index} className="bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium">
+                  {symptom.charAt(0).toUpperCase() + symptom.slice(1)}
+                </div>)}
+            </div>
 
-                <CustomButton variant="outline" onClick={() => navigate('/')}>
-                  Back to Dashboard
-                </CustomButton>
-              </section>
+            <CustomButton variant="outline" onClick={() => navigate('/')}>
+              Back to Dashboard
+            </CustomButton>
+          </section>
 
-              {/* AI Recommended Medicines */}
-              <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <h2 className="text-2xl font-bold text-dark mb-6 pb-4 border-b border-slate-200">
-                  AI Recommended Medicines
-                </h2>
-                <div className="space-y-6">
-                  {recommendedMedicines.map((medicine, index) => <div key={index} className="border border-slate-200 rounded-lg p-6 hover:border-primary transition-all">
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-xl font-semibold text-primary">{medicine.name}</h3>
-                        <div className="bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium">
-                          Recommended
+          <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 className="text-2xl font-bold text-dark mb-6 pb-4 border-b border-slate-200">
+              AI Recommended Medicines
+            </h2>
+            <div className="space-y-6">
+              {recommendedMedicines.map((medicine, index) => <div key={index} className="border border-slate-200 rounded-lg p-6 hover:border-primary transition-all">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-xl font-semibold text-primary">{medicine.name}</h3>
+                    <div className="bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium">
+                      Recommended
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Dosage</p>
+                      <p className="font-medium">{medicine.dosage}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Frequency</p>
+                      <p className="font-medium">{medicine.frequency}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray">{medicine.description}</p>
+                  <div className="mt-4 flex justify-end">
+                    <CustomButton variant="outline" size="sm">
+                      Learn More
+                    </CustomButton>
+                  </div>
+                </div>)}
+            </div>
+          </section>
+
+          {productCategories.map((category, categoryIndex) => <section key={categoryIndex} className="bg-white rounded-lg shadow-sm p-6 mb-8">
+              <h2 className="text-2xl font-bold text-dark mb-6 pb-4 border-b border-slate-200">
+                {category.title}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {category.products.map((product, productIndex) => <Card key={productIndex} className="border border-slate-200 hover-lift-effect overflow-hidden">
+                    <div className="h-48 bg-muted flex items-center justify-center">
+                      <img src={product.image} alt={product.name} className="max-h-40 object-contain" />
+                    </div>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold mb-2 text-dark">{product.name}</h3>
+                      <div className="text-primary font-bold text-lg mb-2">{product.price}</div>
+                      <p className="text-gray text-sm mb-4 min-h-[80px]">{product.description}</p>
+                      
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="flex items-center gap-2">
+                          <div className="flex">{renderStars(product.rating)}</div>
+                          <span className="text-gray text-sm">({product.reviews})</span>
                         </div>
+                        <span className="text-secondary text-sm font-medium">In Stock</span>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground mb-1">Dosage</p>
-                          <p className="font-medium">{medicine.dosage}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground mb-1">Frequency</p>
-                          <p className="font-medium">{medicine.frequency}</p>
-                        </div>
-                      </div>
-                      <p className="text-gray">{medicine.description}</p>
-                      <div className="mt-4 flex justify-end">
+                      
+                      <div className="flex gap-2">
+                        <CustomButton variant="primary" size="sm">
+                          Buy Now
+                        </CustomButton>
                         <CustomButton variant="outline" size="sm">
                           Learn More
                         </CustomButton>
                       </div>
-                    </div>)}
-                </div>
-              </section>
+                    </CardContent>
+                  </Card>)}
+              </div>
+            </section>)}
 
-              {/* Product Categories */}
-              {productCategories.map((category, categoryIndex) => <section key={categoryIndex} className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                  <h2 className="text-2xl font-bold text-dark mb-6 pb-4 border-b border-slate-200">
-                    {category.title}
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {category.products.map((product, productIndex) => <Card key={productIndex} className="border border-slate-200 hover-lift-effect overflow-hidden">
-                        <div className="h-48 bg-muted flex items-center justify-center">
-                          <img src={product.image} alt={product.name} className="max-h-40 object-contain" />
-                        </div>
-                        <CardContent className="p-6">
-                          <h3 className="text-xl font-semibold mb-2 text-dark">{product.name}</h3>
-                          <div className="text-primary font-bold text-lg mb-2">{product.price}</div>
-                          <p className="text-gray text-sm mb-4 min-h-[80px]">{product.description}</p>
-                          
-                          <div className="flex justify-between items-center mb-4">
-                            <div className="flex items-center gap-2">
-                              <div className="flex">{renderStars(product.rating)}</div>
-                              <span className="text-gray text-sm">({product.reviews})</span>
-                            </div>
-                            <span className="text-secondary text-sm font-medium">In Stock</span>
-                          </div>
-                          
-                          <div className="flex gap-2">
-                            <CustomButton variant="primary" size="sm">
-                              Buy Now
-                            </CustomButton>
-                            <CustomButton variant="outline" size="sm">
-                              Learn More
-                            </CustomButton>
-                          </div>
-                        </CardContent>
-                      </Card>)}
-                  </div>
-                </section>)}
+          <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 className="text-2xl font-bold text-dark mb-6">
+              Additional Information
+            </h2>
 
-              {/* Additional Information */}
-              <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <h2 className="text-2xl font-bold text-dark mb-6">
-                  Additional Information
-                </h2>
+            <div className="border-l-4 border-primary bg-primary-light/10 p-6 mb-6">
+              <h3 className="text-xl font-semibold mb-2 text-dark">
+                When to Seek Medical Help
+              </h3>
+              <p className="text-gray">
+                If symptoms persist beyond 3 days or worsen, consult a healthcare professional. 
+                Seek immediate medical attention if you experience difficulty breathing, severe pain, 
+                high fever (above 103°F/39.4°C), or sudden worsening of symptoms.
+              </p>
+            </div>
 
-                <div className="border-l-4 border-primary bg-primary-light/10 p-6 mb-6">
-                  <h3 className="text-xl font-semibold mb-2 text-dark">
-                    When to Seek Medical Help
-                  </h3>
-                  <p className="text-gray">
-                    If symptoms persist beyond 3 days or worsen, consult a healthcare professional. 
-                    Seek immediate medical attention if you experience difficulty breathing, severe pain, 
-                    high fever (above 103°F/39.4°C), or sudden worsening of symptoms.
-                  </p>
-                </div>
+            <div className="border-l-4 border-primary bg-primary-light/10 p-6 mb-6">
+              <h3 className="text-xl font-semibold mb-2 text-dark">
+                Lifestyle Recommendations
+              </h3>
+              <p className="text-gray">
+                Rest as much as possible. Stay hydrated by drinking plenty of fluids, especially water, 
+                clear broths, and warm teas with honey. Use a humidifier or take a steamy shower to help 
+                ease congestion and coughing.
+              </p>
+            </div>
 
-                <div className="border-l-4 border-primary bg-primary-light/10 p-6 mb-6">
-                  <h3 className="text-xl font-semibold mb-2 text-dark">
-                    Lifestyle Recommendations
-                  </h3>
-                  <p className="text-gray">
-                    Rest as much as possible. Stay hydrated by drinking plenty of fluids, especially water, 
-                    clear broths, and warm teas with honey. Use a humidifier or take a steamy shower to help 
-                    ease congestion and coughing.
-                  </p>
-                </div>
-
-                <div className="border-l-4 border-destructive bg-destructive/5 p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-destructive">
-                    Important Disclaimer
-                  </h3>
-                  <p className="text-gray">
-                    These recommendations are generated by an AI system based on the symptoms you provided and 
-                    should not be considered medical advice. Always consult with a healthcare professional before 
-                    starting any new medication or treatment regimen. If you have allergies, existing medical conditions, 
-                    or are taking other medications, consult your doctor or pharmacist before using any of these products.
-                  </p>
-                </div>
-              </section>
-            </>}
-        </div>
-      </main>
-      <Footer />
-    </div>;
+            <div className="border-l-4 border-destructive bg-destructive/5 p-6">
+              <h3 className="text-xl font-semibold mb-2 text-destructive">
+                Important Disclaimer
+              </h3>
+              <p className="text-gray">
+                These recommendations are generated by an AI system based on the symptoms you provided and 
+                should not be considered medical advice. Always consult with a healthcare professional before 
+                starting any new medication or treatment regimen. If you have allergies, existing medical conditions, 
+                or are taking other medications, consult your doctor or pharmacist before using any of these products.
+              </p>
+            </div>
+          </section>
+        </>
+      )}
+    </div>
+  );
 };
+
 export default MedicineSuggestions;

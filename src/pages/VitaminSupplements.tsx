@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { VitaminForm } from "@/components/vitamins/VitaminForm";
 import { VitaminResults } from "@/components/vitamins/VitaminResults";
@@ -228,17 +229,16 @@ export default function VitaminSupplements() {
   };
   
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 py-8">
+      {/* Page Header */}
+      <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-primary">Personalized Vitamin & Supplement Plan</h1>
+        <p className="text-gray-600 mb-6">
+          Get a tailored supplement regimen based on your health goals, dietary preferences, and lifestyle factors.
+        </p>
+      </div>
+      
       <div className="mb-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-dark">
-            Personalized Vitamin & Supplement Plan
-          </h1>
-          <p className="text-gray max-w-2xl mx-auto">
-            Get a tailored supplement regimen based on your health goals, dietary preferences, and lifestyle factors.
-          </p>
-        </div>
-        
         {!recommendations ? (
           <VitaminForm onSubmit={handleFormSubmit} />
         ) : (

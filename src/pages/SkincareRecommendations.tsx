@@ -1,10 +1,7 @@
-
 import { useState } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { SkincareForm } from "@/components/skincare/SkincareForm";
 import { SkincareResults } from "@/components/skincare/SkincareResults";
-import { Skin, SkincareRoutine, InitialFormState } from "@/types/skincare";
+import { Skin, SkincareRoutine } from "@/types/skincare";
 import { useToast } from "@/hooks/use-toast";
 
 export default function SkincareRecommendations() {
@@ -35,39 +32,26 @@ export default function SkincareRecommendations() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <div className="container mx-auto px-4 py-8">
+      {/* Page Header */}
+      <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-primary">Skincare Recommendations</h1>
+        <p className="text-gray-600 mb-6">
+          Answer a few questions about your skin and we'll create a personalized skincare routine with product recommendations just for you.
+        </p>
+      </div>
       
-      <main className="flex-grow pt-24 pb-16">
-        <div className="container mx-auto px-4 md:px-6">
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <div className="py-1 px-3 text-xs font-medium text-primary bg-primary-light rounded-full mb-4 inline-block">
-              Personalized Skin Care
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-dark">
-              Your Perfect Skincare Routine
-            </h1>
-            <p className="text-gray max-w-2xl mx-auto">
-              Answer a few questions about your skin and we'll create a personalized skincare routine with product recommendations just for you.
-            </p>
-          </div>
-          
-          {/* Skincare Form */}
-          <section className="mb-16" id="skincare-form">
-            <SkincareForm onSubmit={generateRoutine} isLoading={isLoading} />
-          </section>
-          
-          {/* Results Section (shows only after form submission) */}
-          {routine && (
-            <section id="skincare-results" className="pt-8">
-              <SkincareResults routine={routine} />
-            </section>
-          )}
-        </div>
-      </main>
+      {/* Skincare Form */}
+      <section className="mb-16" id="skincare-form">
+        <SkincareForm onSubmit={generateRoutine} isLoading={isLoading} />
+      </section>
       
-      <Footer />
+      {/* Results Section (shows only after form submission) */}
+      {routine && (
+        <section id="skincare-results" className="pt-8">
+          <SkincareResults routine={routine} />
+        </section>
+      )}
     </div>
   );
 }

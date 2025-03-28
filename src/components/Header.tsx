@@ -1,12 +1,13 @@
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CustomButton } from "./ui/CustomButton";
 import { Heart } from "lucide-react";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,13 +22,12 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Navigation items with their routes
+  // Updated navigation items
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Medicine Suggestions", path: "/medicine-suggestions" },
-    { name: "Medicine Review", path: "/medicine-review" },
-    { name: "Skincare", path: "/skincare-recommendations" },
-    { name: "Vitamins", path: "/vitamin-supplements" },
+    { name: "For PharmaRep", path: "/medicine-suggestions" },
+    { name: "About Us", path: "/about-us" },
+    { name: "Contact Us", path: "/contact-us" },
   ];
 
   return (

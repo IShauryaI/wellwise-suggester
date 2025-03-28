@@ -58,7 +58,14 @@ const App = () => (
               </PageLayout>
             } 
           />
-          <Route path="/vitamin-supplements" element={<VitaminSupplements />} />
+          <Route 
+            path="/vitamin-supplements" 
+            element={
+              <PageLayout>
+                <VitaminSupplements />
+              </PageLayout>
+            }
+          />
           <Route 
             path="*" 
             element={

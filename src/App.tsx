@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import MedicineSuggestions from "./pages/MedicineSuggestions";
 import MedicineReview from "./pages/MedicineReview";
 import SkincareRecommendations from "./pages/SkincareRecommendations";
@@ -29,6 +31,13 @@ const PageLayout = ({
     <Footer />
   </div>;
 
+// Layout for authentication pages without header, footer, or back button
+const AuthLayout = ({ children }) => (
+  <div className="min-h-screen flex flex-col">
+    {children}
+  </div>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <Toaster />
@@ -36,6 +45,8 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
+        <Route path="/signup" element={<AuthLayout><Signup /></AuthLayout>} />
         <Route path="/medicine-suggestions" element={<PageLayout>
               <MedicineSuggestions />
             </PageLayout>} />

@@ -62,12 +62,16 @@ export function Header() {
           
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <CustomButton variant="outline" size="sm">
-              Login
-            </CustomButton>
-            <CustomButton variant="primary" size="sm">
-              Sign Up
-            </CustomButton>
+            <Link to="/login">
+              <CustomButton variant="outline" size="sm">
+                Login
+              </CustomButton>
+            </Link>
+            <Link to="/signup">
+              <CustomButton variant="primary" size="sm">
+                Sign Up
+              </CustomButton>
+            </Link>
           </div>
           
           {/* Mobile Menu Button */}
@@ -102,12 +106,16 @@ export function Header() {
                 </li>
               ))}
               <li className="pt-2 flex flex-col gap-3">
-                <CustomButton variant="outline" size="sm">
-                  Login
-                </CustomButton>
-                <CustomButton variant="primary" size="sm">
-                  Sign Up
-                </CustomButton>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <CustomButton variant="outline" size="sm" className="w-full">
+                    Login
+                  </CustomButton>
+                </Link>
+                <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                  <CustomButton variant="primary" size="sm" className="w-full">
+                    Sign Up
+                  </CustomButton>
+                </Link>
               </li>
             </ul>
           </div>

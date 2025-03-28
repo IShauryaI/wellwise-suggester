@@ -26,10 +26,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Apply theme to document
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const root = window.document.documentElement;
-      root.classList.remove('light', 'dark');
-      root.classList.add(theme);
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
       localStorage.setItem('theme', theme);
+      
+      // Force an update to make sure all components re-render
+      document.body.style.backgroundColor = ''; // Just to trigger a repaint
     }
   }, [theme]);
 

@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Heart, Moon, Sun } from "lucide-react";
 import { Toggle } from "./ui/toggle";
 import { useTheme } from "@/contexts/ThemeContext";
+import { Switch } from "./ui/switch";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,7 +41,7 @@ export function Header() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-primary">
+          <Link to="/" className="flex items-center gap-2 text-primary dark:text-primary">
             <Heart className="h-7 w-7" strokeWidth={2.5} />
             <span className="text-xl font-bold">WellBeing</span>
           </Link>
@@ -53,7 +54,7 @@ export function Header() {
                   <Link 
                     to={item.path}
                     className={`text-sm font-medium transition-all duration-200 hover:text-primary 
-                      ${location.pathname === item.path ? "text-primary" : "text-dark/80 dark:text-white/80"}`}
+                      ${location.pathname === item.path ? "text-primary dark:text-primary" : "text-dark/80 dark:text-white/80"}`}
                   >
                     {item.name}
                   </Link>
@@ -64,18 +65,15 @@ export function Header() {
           
           {/* Theme Toggle Button */}
           <div className="flex items-center">
-            <Toggle 
-              pressed={theme === 'dark'} 
-              onPressedChange={toggleTheme}
-              className="rounded-full p-2"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Toggle>
+            <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-2 py-1">
+              <Sun className="h-4 w-4 text-yellow-500" />
+              <Switch 
+                checked={theme === 'dark'}
+                onCheckedChange={toggleTheme}
+                aria-label="Toggle theme"
+              />
+              <Moon className="h-4 w-4 text-gray-400 dark:text-gray-300" />
+            </div>
           </div>
           
           {/* Mobile Menu Button */}
@@ -102,7 +100,7 @@ export function Header() {
                   <Link 
                     to={item.path}
                     className={`block text-sm font-medium transition-all duration-200 hover:text-primary 
-                      ${location.pathname === item.path ? "text-primary" : "text-dark/80 dark:text-white/80"}`}
+                      ${location.pathname === item.path ? "text-primary dark:text-primary" : "text-dark/80 dark:text-white/80"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -110,18 +108,15 @@ export function Header() {
                 </li>
               ))}
               <li className="pt-2 flex justify-center">
-                <Toggle 
-                  pressed={theme === 'dark'} 
-                  onPressedChange={toggleTheme}
-                  className="rounded-full p-2"
-                  aria-label="Toggle theme"
-                >
-                  {theme === 'dark' ? (
-                    <Sun className="h-5 w-5" />
-                  ) : (
-                    <Moon className="h-5 w-5" />
-                  )}
-                </Toggle>
+                <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-2 py-1">
+                  <Sun className="h-4 w-4 text-yellow-500" />
+                  <Switch 
+                    checked={theme === 'dark'}
+                    onCheckedChange={toggleTheme}
+                    aria-label="Toggle theme"
+                  />
+                  <Moon className="h-4 w-4 text-gray-400 dark:text-gray-300" />
+                </div>
               </li>
             </ul>
           </div>

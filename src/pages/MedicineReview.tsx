@@ -5,17 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Star, ThumbsUp } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+
 type Rating = {
   effectiveness: number;
   sideEffects: number;
   easeOfUse: number;
   satisfaction: number;
 };
+
 type Review = {
   id: string;
   reviewer: string;
@@ -27,6 +28,7 @@ type Review = {
   wouldRecommend: string;
   helpfulCount: number;
 };
+
 const MedicineReview = () => {
   const navigate = useNavigate();
   const [medicineName, setMedicineName] = useState("");
@@ -89,12 +91,14 @@ const MedicineReview = () => {
     wouldRecommend: "Yes",
     helpfulCount: 31
   }]);
+
   const handleSetRating = (type: keyof Rating, value: number) => {
     setRatings(prev => ({
       ...prev,
       [type]: value
     }));
   };
+
   const renderStarRating = (type: keyof Rating, label: string) => {
     const currentRating = ratings[type];
     return <div className="mb-4">
@@ -108,19 +112,20 @@ const MedicineReview = () => {
         </div>
       </div>;
   };
+
   const renderReadOnlyStars = (count: number) => {
     return <div className="flex">
         {[1, 2, 3, 4, 5].map(star => <Star key={star} className={`h-4 w-4 ${star <= count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />)}
       </div>;
   };
+
   const handleMarkHelpful = (reviewId: string) => {
-    // In a real app, we would update this on the server
     toast.success("Thank you for your feedback!");
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Form validation
     if (!medicineName.trim()) {
       toast.error("Please enter a medicine name");
       return;
@@ -139,7 +144,6 @@ const MedicineReview = () => {
     }
     setIsSubmitting(true);
 
-    // Simulate API call
     setTimeout(() => {
       toast.success("Your review has been submitted successfully!");
       setMedicineName("");
@@ -155,17 +159,16 @@ const MedicineReview = () => {
       setWouldRecommend("");
       setIsSubmitting(false);
 
-      // Scroll to reviews section
       document.getElementById('reviews')?.scrollIntoView({
         behavior: "smooth"
       });
     }, 1500);
   };
+
   return <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow pt-24 py-0">
+      <main className="flex-grow">
         <div className="container mx-auto px-4 py-8">
-          {/* Breadcrumb */}
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -182,7 +185,6 @@ const MedicineReview = () => {
             </BreadcrumbList>
           </Breadcrumb>
           
-          {/* Page Header */}
           <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
             <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Reviews</h1>
             <p className="text-gray-600 mb-6">
@@ -194,7 +196,6 @@ const MedicineReview = () => {
             </div>
           </div>
           
-          {/* Review Form */}
           <div id="review-form" className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
             <h2 className="text-2xl font-bold mb-6">Submit Your Review</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -246,11 +247,13 @@ const MedicineReview = () => {
             </form>
           </div>
           
-          {/* Reviews List */}
-          
+          <div>
+            
+          </div>
         </div>
       </main>
       <Footer />
     </div>;
 };
+
 export default MedicineReview;

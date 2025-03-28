@@ -6,21 +6,119 @@ import { CustomButton } from "@/components/ui/CustomButton";
 import { ArrowLeft, Pill } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
+
+interface Medicine {
+  name: string;
+  dosage: string;
+  frequency: string;
+  description: string;
+}
 
 const MedicineSuggestions = () => {
   const [symptoms, setSymptoms] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
+  const [recommendedMedicines, setRecommendedMedicines] = useState<Medicine[]>([]);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate AI processing
+    if (!symptoms.trim()) {
+      toast.error("Please enter your symptoms");
+      setIsLoading(false);
+      return;
+    }
+
+    // Simulate AI processing and get medicine recommendations
     setTimeout(() => {
-      setResults(["fever", "headache", "sore throat", "coughing"]);
+      const symptomsArray = symptoms.toLowerCase().split(/[,\s]+/).filter(s => s.length > 2);
+      const detectedSymptoms = [];
+
+      // Detect symptoms from input
+      if (symptomsArray.some(s => s.includes("fever") || s.includes("temperature") || s.includes("hot"))) {
+        detectedSymptoms.push("fever");
+      }
+      if (symptomsArray.some(s => s.includes("head") || s.includes("migraine"))) {
+        detectedSymptoms.push("headache");
+      }
+      if (symptomsArray.some(s => s.includes("throat") || s.includes("swallow"))) {
+        detectedSymptoms.push("sore throat");
+      }
+      if (symptomsArray.some(s => s.includes("cough") || s.includes("throat") || s.includes("phlegm"))) {
+        detectedSymptoms.push("coughing");
+      }
+      if (symptomsArray.some(s => s.includes("nose") || s.includes("nasal") || s.includes("congestion"))) {
+        detectedSymptoms.push("nasal congestion");
+      }
+
+      // Ensure we have at least some default symptoms if none were detected
+      if (detectedSymptoms.length === 0) {
+        detectedSymptoms.push("general discomfort");
+      }
+
+      setResults(detectedSymptoms);
+
+      // Generate medicine recommendations based on symptoms
+      const medicineRecommendations: Medicine[] = [];
+
+      if (detectedSymptoms.includes("fever") || detectedSymptoms.includes("headache")) {
+        medicineRecommendations.push({
+          name: "Paracetamol",
+          dosage: "500-1000 mg",
+          frequency: "Every 4-6 hours as needed (max 4g per day)",
+          description: "For relief of fever, headaches and general pain. Helps reduce body temperature and alleviate discomfort."
+        });
+        
+        medicineRecommendations.push({
+          name: "Ibuprofen",
+          dosage: "200-400 mg",
+          frequency: "Every 6-8 hours as needed with food",
+          description: "Anti-inflammatory medication that reduces fever, pain, and inflammation. Effective for headaches and body aches."
+        });
+      }
+
+      if (detectedSymptoms.includes("sore throat")) {
+        medicineRecommendations.push({
+          name: "Benzocaine Lozenges",
+          dosage: "1 lozenge",
+          frequency: "Every 2 hours as needed",
+          description: "Contains a local anesthetic that numbs the throat, providing temporary relief from sore throat pain."
+        });
+      }
+
+      if (detectedSymptoms.includes("coughing")) {
+        medicineRecommendations.push({
+          name: "Dextromethorphan Syrup",
+          dosage: "10-20 ml",
+          frequency: "Every 4 hours as needed",
+          description: "Cough suppressant that helps reduce the urge to cough. Best for dry, non-productive coughs."
+        });
+      }
+
+      if (detectedSymptoms.includes("nasal congestion")) {
+        medicineRecommendations.push({
+          name: "Pseudoephedrine",
+          dosage: "60 mg",
+          frequency: "Every 4-6 hours (max 240mg daily)",
+          description: "Decongestant that relieves nasal stuffiness and sinus pressure by shrinking blood vessels in the nasal passages."
+        });
+      }
+
+      // Add a general recommendation if we don't have enough specific ones
+      if (medicineRecommendations.length < 4) {
+        medicineRecommendations.push({
+          name: "Multivitamin Complex",
+          dosage: "1 tablet",
+          frequency: "Once daily with food",
+          description: "Supports immune function and overall health during recovery with essential vitamins and minerals."
+        });
+      }
+
+      setRecommendedMedicines(medicineRecommendations);
       setIsLoading(false);
     }, 2000);
   };
@@ -213,7 +311,10 @@ const MedicineSuggestions = () => {
               {/* Recommendation Hero */}
               <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
                 <button 
-                  onClick={() => setResults([])} 
+                  onClick={() => {
+                    setResults([]);
+                    setRecommendedMedicines([]);
+                  }} 
                   className="flex items-center text-gray mb-6 hover:text-primary transition-colors"
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -245,6 +346,41 @@ const MedicineSuggestions = () => {
                 >
                   Back to Dashboard
                 </CustomButton>
+              </section>
+
+              {/* AI Recommended Medicines */}
+              <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+                <h2 className="text-2xl font-bold text-dark mb-6 pb-4 border-b border-slate-200">
+                  AI Recommended Medicines
+                </h2>
+                <div className="space-y-6">
+                  {recommendedMedicines.map((medicine, index) => (
+                    <div key={index} className="border border-slate-200 rounded-lg p-6 hover:border-primary transition-all">
+                      <div className="flex justify-between items-start mb-3">
+                        <h3 className="text-xl font-semibold text-primary">{medicine.name}</h3>
+                        <div className="bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium">
+                          Recommended
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                          <p className="text-sm text-muted-foreground mb-1">Dosage</p>
+                          <p className="font-medium">{medicine.dosage}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground mb-1">Frequency</p>
+                          <p className="font-medium">{medicine.frequency}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray">{medicine.description}</p>
+                      <div className="mt-4 flex justify-end">
+                        <CustomButton variant="outline" size="sm">
+                          Learn More
+                        </CustomButton>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </section>
 
               {/* Product Categories */}

@@ -25,7 +25,7 @@ export function Header() {
   // Updated navigation items
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "For PharmaRep", path: "/medicine-suggestions" },
+    { name: "For PharmaRep", path: "/pharma-rep" },
     { name: "About Us", path: "/about-us" },
     { name: "Contact Us", path: "/contact-us" },
   ];

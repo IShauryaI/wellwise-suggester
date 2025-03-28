@@ -1,6 +1,6 @@
 
 import { CustomButton } from "./ui/CustomButton";
-import { Pill, UserRound, Sparkles, Beaker, MessageSquare } from "lucide-react";
+import { Pill, Sparkles, Beaker, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
@@ -18,12 +18,6 @@ export function Dashboard() {
     description: "Share your experiences with medications and help others make informed decisions about their treatment.",
     cta: "Write a Review",
     action: () => navigate('/medicine-review')
-  }, {
-    icon: <UserRound className="w-8 h-8" />,
-    title: "For PharmaRep",
-    description: "Share your experiences with medications and learn from others to make better treatment decisions.",
-    cta: "View Reviews",
-    action: () => console.log("PharmaRep clicked")
   }, {
     icon: <Sparkles className="w-8 h-8" />,
     title: "Skincare Recommendations",

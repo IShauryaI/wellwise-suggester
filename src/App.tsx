@@ -9,6 +9,7 @@ import MedicineSuggestions from "./pages/MedicineSuggestions";
 import MedicineReview from "./pages/MedicineReview";
 import SkincareRecommendations from "./pages/SkincareRecommendations";
 import VitaminSupplements from "./pages/VitaminSupplements";
+import PharmaRep from "./pages/PharmaRep";
 import NotFound from "./pages/NotFound";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -63,6 +64,14 @@ const App = () => (
             element={
               <PageLayout>
                 <VitaminSupplements />
+              </PageLayout>
+            }
+          />
+          <Route 
+            path="/pharma-rep" 
+            element={
+              <PageLayout>
+                <PharmaRep />
               </PageLayout>
             }
           />

@@ -1,16 +1,15 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, Moon, Sun, Smile } from "lucide-react";
+import { Heart, Smile } from "lucide-react";
 import { Toggle } from "./ui/toggle";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Switch } from "./ui/switch";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,13 +45,6 @@ export function Header() {
             <span className="text-xl font-bold">WellBeing</span>
           </Link>
           
-          {/* Welcome Message with Emoji */}
-          <div className="hidden md:flex items-center mr-4">
-            <span className="text-sm font-medium text-dark/80 dark:text-white/80">
-              Welcome <Smile className="inline h-4 w-4 text-yellow-500" />
-            </span>
-          </div>
-          
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
             <ul className="flex space-x-8">
@@ -70,16 +62,12 @@ export function Header() {
             </ul>
           </nav>
           
-          {/* Theme Toggle Button */}
+          {/* Welcome Message with Violet Emoji (in place of dark mode toggle) */}
           <div className="flex items-center">
-            <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-2 py-1">
-              <Sun className="h-4 w-4 text-yellow-500" />
-              <Switch 
-                checked={theme === 'dark'}
-                onCheckedChange={toggleTheme}
-                aria-label="Toggle theme"
-              />
-              <Moon className="h-4 w-4 text-gray-400 dark:text-gray-300" />
+            <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-3 py-1.5">
+              <span className="text-sm font-medium text-dark/80 dark:text-white/80">
+                Welcome <Smile className="inline h-4 w-4 text-violet-500" />
+              </span>
             </div>
           </div>
           
@@ -115,20 +103,11 @@ export function Header() {
                 </li>
               ))}
               <li className="pt-2 flex justify-center">
-                {/* Welcome Message in Mobile Menu */}
-                <span className="text-sm font-medium text-dark/80 dark:text-white/80 mb-2">
-                  Welcome <Smile className="inline h-4 w-4 text-yellow-500" />
-                </span>
-              </li>
-              <li className="pt-2 flex justify-center">
-                <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-2 py-1">
-                  <Sun className="h-4 w-4 text-yellow-500" />
-                  <Switch 
-                    checked={theme === 'dark'}
-                    onCheckedChange={toggleTheme}
-                    aria-label="Toggle theme"
-                  />
-                  <Moon className="h-4 w-4 text-gray-400 dark:text-gray-300" />
+                {/* Welcome Message with Violet Emoji in Mobile Menu (in place of dark mode toggle) */}
+                <div className="flex items-center space-x-2 border dark:border-gray-700 rounded-full px-3 py-1.5">
+                  <span className="text-sm font-medium text-dark/80 dark:text-white/80">
+                    Welcome <Smile className="inline h-4 w-4 text-violet-500" />
+                  </span>
                 </div>
               </li>
             </ul>

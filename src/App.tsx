@@ -22,8 +22,10 @@ const PageLayout = ({
   showBackButton = true
 }) => <div className="min-h-screen flex flex-col">
     <Header />
-    {showBackButton && <BackButton />}
-    <div className="flex-grow pb-16">{children}</div>
+    <main className="flex-grow pt-16 pb-16">
+      {showBackButton && <BackButton />}
+      {children}
+    </main>
     <Footer />
   </div>;
 

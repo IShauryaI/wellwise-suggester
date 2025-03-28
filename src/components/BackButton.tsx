@@ -6,7 +6,7 @@ export function BackButton() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-center ml-4 mb-4">
+    <div className="mt-16 mb-4 ml-4">
       <button
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary transition-colors"

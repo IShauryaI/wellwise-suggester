@@ -165,97 +165,143 @@ const MedicineReview = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow pt-0">
-          <div className="container mx-auto px-4 py-8">
-            <Breadcrumb className="mb-6">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-            
-            <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
-              <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Reviews</h1>
-              <p className="text-gray-600 mb-6">
-                Share your experiences with medications and help others make informed decisions. Browse reviews from other users to learn about effectiveness, side effects, and overall satisfaction with various medications.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                
-                
-              </div>
-            </div>
-            
-            <div id="review-form" className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
-              <h2 className="text-2xl font-bold mb-6">Submit Your Review</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="medicine-name">Medicine Name</Label>
-                  <Input id="medicine-name" placeholder="Enter the name of the medication" value={medicineName} onChange={e => setMedicineName(e.target.value)} />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="condition">What condition did you take this medication for?</Label>
-                  <Input id="condition" placeholder="E.g., Type 2 Diabetes, Hypertension, Allergies, etc." value={condition} onChange={e => setCondition(e.target.value)} />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label>Please rate your experience:</Label>
-                  <div className="bg-slate-50 p-4 rounded-md">
-                    {renderStarRating("effectiveness", "Effectiveness")}
-                    {renderStarRating("sideEffects", "Side Effects")}
-                    {renderStarRating("easeOfUse", "Ease of Use")}
-                    {renderStarRating("satisfaction", "Overall Satisfaction")}
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="side-effects-text">Did you experience any side effects? If yes, please describe them:</Label>
-                  <Textarea id="side-effects-text" placeholder="Describe any side effects you experienced..." value={sideEffectsText} onChange={e => setSideEffectsText(e.target.value)} className="resize-none" />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="review-text">Your Review</Label>
-                  <Textarea id="review-text" placeholder="Share your overall experience with this medication..." rows={6} value={reviewText} onChange={e => setReviewText(e.target.value)} className="resize-none" />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="would-recommend">Would you recommend this medication to others with your condition?</Label>
-                  <select id="would-recommend" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" value={wouldRecommend} onChange={e => setWouldRecommend(e.target.value)}>
-                    <option value="">Please select...</option>
-                    <option value="Yes">Yes, I would recommend it</option>
-                    <option value="Maybe">Maybe, it depends on the individual</option>
-                    <option value="No">No, I would not recommend it</option>
-                  </select>
-                </div>
-                
-                <div className="flex justify-end pt-4">
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting..." : "Submit Review"}
-                  </Button>
-                </div>
-              </form>
-            </div>
-            
-            <div>
-              
+    <div className="container mx-auto px-4 py-0">
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink to="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink to="/medicine-suggestions">Medicine Suggestions</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Medicine Review</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      
+      <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Reviews</h1>
+        <p className="text-gray-600 mb-6">
+          Share your experiences with medications and help others make informed decisions. Browse reviews from other users to learn about effectiveness, side effects, and overall satisfaction with various medications.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="secondary" size="sm">
+            Most Recent
+          </Button>
+          <Button variant="secondary" size="sm">
+            Most Helpful
+          </Button>
+        </div>
+      </div>
+      
+      <div id="review-form" className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+        <h2 className="text-2xl font-bold mb-6">Submit Your Review</h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="medicine-name">Medicine Name</Label>
+            <Input id="medicine-name" placeholder="Enter the name of the medication" value={medicineName} onChange={e => setMedicineName(e.target.value)} />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="condition">What condition did you take this medication for?</Label>
+            <Input id="condition" placeholder="E.g., Type 2 Diabetes, Hypertension, Allergies, etc." value={condition} onChange={e => setCondition(e.target.value)} />
+          </div>
+          
+          <div className="space-y-2">
+            <Label>Please rate your experience:</Label>
+            <div className="bg-slate-50 p-4 rounded-md">
+              {renderStarRating("effectiveness", "Effectiveness")}
+              {renderStarRating("sideEffects", "Side Effects")}
+              {renderStarRating("easeOfUse", "Ease of Use")}
+              {renderStarRating("satisfaction", "Overall Satisfaction")}
             </div>
           </div>
-        </main>
-        <Footer />
+          
+          <div className="space-y-2">
+            <Label htmlFor="side-effects-text">Did you experience any side effects? If yes, please describe them:</Label>
+            <Textarea id="side-effects-text" placeholder="Describe any side effects you experienced..." value={sideEffectsText} onChange={e => setSideEffectsText(e.target.value)} className="resize-none" />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="review-text">Your Review</Label>
+            <Textarea id="review-text" placeholder="Share your overall experience with this medication..." rows={6} value={reviewText} onChange={e => setReviewText(e.target.value)} className="resize-none" />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="would-recommend">Would you recommend this medication to others with your condition?</Label>
+            <select id="would-recommend" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" value={wouldRecommend} onChange={e => setWouldRecommend(e.target.value)}>
+              <option value="">Please select...</option>
+              <option value="Yes">Yes, I would recommend it</option>
+              <option value="Maybe">Maybe, it depends on the individual</option>
+              <option value="No">No, I would not recommend it</option>
+            </select>
+          </div>
+          
+          <div className="flex justify-end pt-4">
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit Review"}
+            </Button>
+          </div>
+        </form>
       </div>
-    </>
+      
+      <div>
+        <h2 id="reviews" className="text-2xl font-bold mb-4">
+          What others are saying
+        </h2>
+        {reviews.map(review => (
+          <div key={review.id} className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-4">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-xl font-semibold text-primary">{review.medicineName}</h3>
+                <p className="text-gray-600 text-sm">Condition: {review.condition}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-gray-700 font-medium">
+                  {review.reviewer}
+                </p>
+                <p className="text-gray-500 text-sm">{review.date}</p>
+              </div>
+            </div>
+            <div className="mb-4">
+              <p className="text-gray-800">{review.text}</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-sm">Ratings:</p>
+                <div className="flex items-center gap-2">
+                  <span>Effectiveness:</span>
+                  {renderReadOnlyStars(review.ratings.effectiveness)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>Side Effects:</span>
+                  {renderReadOnlyStars(review.ratings.sideEffects)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>Ease of Use:</span>
+                  {renderReadOnlyStars(review.ratings.easeOfUse)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>Satisfaction:</span>
+                  {renderReadOnlyStars(review.ratings.satisfaction)}
+                </div>
+                <p className="mt-2">
+                  <span className="font-medium text-sm">Would Recommend:</span>{" "}
+                  {review.wouldRecommend}
+                </p>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => handleMarkHelpful(review.id)}>
+                <ThumbsUp className="h-4 w-4 mr-2" />
+                Helpful ({review.helpfulCount})
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

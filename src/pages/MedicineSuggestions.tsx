@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CustomButton } from "@/components/ui/CustomButton";
-import { ArrowLeft, Pill, ChevronRight, ChevronLeft } from "lucide-react";
+import { ArrowLeft, Pill, ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -275,9 +275,10 @@ const MedicineSuggestions = () => {
               variant="primary" 
               onClick={handlePrevStep}
               disabled={currentStep === 0}
+              className="flex flex-col items-center gap-1"
             >
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              Previous
+              <span>Previous</span>
+              <ChevronDown className="h-4 w-4" />
             </CustomButton>
             
             <CustomButton 
@@ -504,7 +505,7 @@ const MedicineSuggestions = () => {
               Additional Information
             </h2>
 
-            <div className="border-l-4 border-primary bg-primary-light/10 p-6 mb-6">
+            <div className="border-l-4 border-4 border-primary bg-primary-light/10 p-6 mb-6">
               <h3 className="text-xl font-semibold mb-2 text-dark">
                 When to Seek Medical Help
               </h3>

@@ -44,7 +44,6 @@ const MedicineReview = () => {
   const [wouldRecommend, setWouldRecommend] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Sample reviews data
   const [reviews] = useState<Review[]>([{
     id: "1",
     reviewer: "Sarah J.",
@@ -165,95 +164,99 @@ const MedicineReview = () => {
     }, 1500);
   };
 
-  return <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow">
-        <div className="container mx-auto px-4 py-8">
-          <Breadcrumb className="mb-6">
-            <BreadcrumbList>
-              <BreadcrumbItem>
+  return (
+    <>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow pt-0">
+          <div className="container mx-auto px-4 py-8">
+            <Breadcrumb className="mb-6">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+            
+            <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+              <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Reviews</h1>
+              <p className="text-gray-600 mb-6">
+                Share your experiences with medications and help others make informed decisions. Browse reviews from other users to learn about effectiveness, side effects, and overall satisfaction with various medications.
+              </p>
+              <div className="flex flex-wrap gap-3">
                 
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
                 
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
+              </div>
+            </div>
+            
+            <div id="review-form" className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+              <h2 className="text-2xl font-bold mb-6">Submit Your Review</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="medicine-name">Medicine Name</Label>
+                  <Input id="medicine-name" placeholder="Enter the name of the medication" value={medicineName} onChange={e => setMedicineName(e.target.value)} />
+                </div>
                 
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-          
-          <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
-            <h1 className="text-3xl font-bold mb-2 text-primary">Medicine Reviews</h1>
-            <p className="text-gray-600 mb-6">
-              Share your experiences with medications and help others make informed decisions. Browse reviews from other users to learn about effectiveness, side effects, and overall satisfaction with various medications.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              
+                <div className="space-y-2">
+                  <Label htmlFor="condition">What condition did you take this medication for?</Label>
+                  <Input id="condition" placeholder="E.g., Type 2 Diabetes, Hypertension, Allergies, etc." value={condition} onChange={e => setCondition(e.target.value)} />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>Please rate your experience:</Label>
+                  <div className="bg-slate-50 p-4 rounded-md">
+                    {renderStarRating("effectiveness", "Effectiveness")}
+                    {renderStarRating("sideEffects", "Side Effects")}
+                    {renderStarRating("easeOfUse", "Ease of Use")}
+                    {renderStarRating("satisfaction", "Overall Satisfaction")}
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="side-effects-text">Did you experience any side effects? If yes, please describe them:</Label>
+                  <Textarea id="side-effects-text" placeholder="Describe any side effects you experienced..." value={sideEffectsText} onChange={e => setSideEffectsText(e.target.value)} className="resize-none" />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="review-text">Your Review</Label>
+                  <Textarea id="review-text" placeholder="Share your overall experience with this medication..." rows={6} value={reviewText} onChange={e => setReviewText(e.target.value)} className="resize-none" />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="would-recommend">Would you recommend this medication to others with your condition?</Label>
+                  <select id="would-recommend" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" value={wouldRecommend} onChange={e => setWouldRecommend(e.target.value)}>
+                    <option value="">Please select...</option>
+                    <option value="Yes">Yes, I would recommend it</option>
+                    <option value="Maybe">Maybe, it depends on the individual</option>
+                    <option value="No">No, I would not recommend it</option>
+                  </select>
+                </div>
+                
+                <div className="flex justify-end pt-4">
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Submitting..." : "Submit Review"}
+                  </Button>
+                </div>
+              </form>
+            </div>
+            
+            <div>
               
             </div>
           </div>
-          
-          <div id="review-form" className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6">Submit Your Review</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="medicine-name">Medicine Name</Label>
-                <Input id="medicine-name" placeholder="Enter the name of the medication" value={medicineName} onChange={e => setMedicineName(e.target.value)} />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="condition">What condition did you take this medication for?</Label>
-                <Input id="condition" placeholder="E.g., Type 2 Diabetes, Hypertension, Allergies, etc." value={condition} onChange={e => setCondition(e.target.value)} />
-              </div>
-              
-              <div className="space-y-2">
-                <Label>Please rate your experience:</Label>
-                <div className="bg-slate-50 p-4 rounded-md">
-                  {renderStarRating("effectiveness", "Effectiveness")}
-                  {renderStarRating("sideEffects", "Side Effects")}
-                  {renderStarRating("easeOfUse", "Ease of Use")}
-                  {renderStarRating("satisfaction", "Overall Satisfaction")}
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="side-effects-text">Did you experience any side effects? If yes, please describe them:</Label>
-                <Textarea id="side-effects-text" placeholder="Describe any side effects you experienced..." value={sideEffectsText} onChange={e => setSideEffectsText(e.target.value)} className="resize-none" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="review-text">Your Review</Label>
-                <Textarea id="review-text" placeholder="Share your overall experience with this medication..." rows={6} value={reviewText} onChange={e => setReviewText(e.target.value)} className="resize-none" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="would-recommend">Would you recommend this medication to others with your condition?</Label>
-                <select id="would-recommend" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" value={wouldRecommend} onChange={e => setWouldRecommend(e.target.value)}>
-                  <option value="">Please select...</option>
-                  <option value="Yes">Yes, I would recommend it</option>
-                  <option value="Maybe">Maybe, it depends on the individual</option>
-                  <option value="No">No, I would not recommend it</option>
-                </select>
-              </div>
-              
-              <div className="flex justify-end pt-4">
-                <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Submitting..." : "Submit Review"}
-                </Button>
-              </div>
-            </form>
-          </div>
-          
-          <div>
-            
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>;
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
 };
 
 export default MedicineReview;

@@ -52,11 +52,13 @@ export function VitaminForm({ onSubmit }: VitaminFormProps) {
     setIsSubmitting(true);
     try {
       const formData: VitaminProfile = {
-        ...values,
-        healthGoals: values.healthGoals as HealthGoal[],
-        dietary: values.dietary as DietaryPreference,
         age: values.age as AgeRange,
+        gender: values.gender, // Ensure gender is always included
+        dietary: values.dietary as DietaryPreference,
+        healthGoals: values.healthGoals as HealthGoal[],
         activityLevel: values.activityLevel as ActivityLevel,
+        existingConditions: values.existingConditions || '',
+        currentSupplements: values.currentSupplements || ''
       };
       onSubmit(formData);
     } catch (error) {

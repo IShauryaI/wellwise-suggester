@@ -1,6 +1,6 @@
 
 import { CustomButton } from "./ui/CustomButton";
-import { Pill, UserRound, Sparkles, Beaker } from "lucide-react";
+import { Pill, UserRound, Sparkles, Beaker, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
@@ -13,6 +13,13 @@ export function Dashboard() {
       description: "Get personalized medication suggestions based on your symptoms, backed by AI-powered analysis.",
       cta: "Get Started",
       action: () => navigate('/medicine-suggestions')
+    },
+    {
+      icon: <MessageSquare className="w-8 h-8"/>,
+      title: "Medicine Review",
+      description: "Share your experiences with medications and help others make informed decisions about their treatment.",
+      cta: "Write a Review",
+      action: () => navigate('/medicine-review')
     },
     {
       icon: <UserRound className="w-8 h-8"/>,

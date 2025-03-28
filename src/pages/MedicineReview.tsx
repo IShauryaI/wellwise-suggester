@@ -7,14 +7,12 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Star, ThumbsUp } from "lucide-react";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
-
 type Rating = {
   effectiveness: number;
   sideEffects: number;
   easeOfUse: number;
   satisfaction: number;
 };
-
 type Review = {
   id: string;
   reviewer: string;
@@ -26,7 +24,6 @@ type Review = {
   wouldRecommend: string;
   helpfulCount: number;
 };
-
 const MedicineReview = () => {
   const navigate = useNavigate();
   const [medicineName, setMedicineName] = useState("");
@@ -41,7 +38,6 @@ const MedicineReview = () => {
   const [reviewText, setReviewText] = useState("");
   const [wouldRecommend, setWouldRecommend] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [reviews] = useState<Review[]>([{
     id: "1",
     reviewer: "Sarah J.",
@@ -88,14 +84,12 @@ const MedicineReview = () => {
     wouldRecommend: "Yes",
     helpfulCount: 31
   }]);
-
   const handleSetRating = (type: keyof Rating, value: number) => {
     setRatings(prev => ({
       ...prev,
       [type]: value
     }));
   };
-
   const renderStarRating = (type: keyof Rating, label: string) => {
     const currentRating = ratings[type];
     return <div className="mb-4">
@@ -109,20 +103,16 @@ const MedicineReview = () => {
         </div>
       </div>;
   };
-
   const renderReadOnlyStars = (count: number) => {
     return <div className="flex">
         {[1, 2, 3, 4, 5].map(star => <Star key={star} className={`h-4 w-4 ${star <= count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />)}
       </div>;
   };
-
   const handleMarkHelpful = (reviewId: string) => {
     toast.success("Thank you for your feedback!");
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!medicineName.trim()) {
       toast.error("Please enter a medicine name");
       return;
@@ -140,7 +130,6 @@ const MedicineReview = () => {
       return;
     }
     setIsSubmitting(true);
-
     setTimeout(() => {
       toast.success("Your review has been submitted successfully!");
       setMedicineName("");
@@ -155,33 +144,14 @@ const MedicineReview = () => {
       setReviewText("");
       setWouldRecommend("");
       setIsSubmitting(false);
-
       document.getElementById('reviews')?.scrollIntoView({
         behavior: "smooth"
       });
     }, 1500);
   };
-
-  return (
-    <div className="container mx-auto px-4 py-0">
+  return <div className="container mx-auto px-4 py-0">
       <Breadcrumb className="mb-6">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/">Home</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/medicine-suggestions">Medicine Suggestions</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Medicine Review</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
+        
       </Breadcrumb>
       
       <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
@@ -190,12 +160,8 @@ const MedicineReview = () => {
           Share your experiences with medications and help others make informed decisions. Browse reviews from other users to learn about effectiveness, side effects, and overall satisfaction with various medications.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Button variant="secondary" size="sm">
-            Most Recent
-          </Button>
-          <Button variant="secondary" size="sm">
-            Most Helpful
-          </Button>
+          
+          
         </div>
       </div>
       
@@ -254,8 +220,7 @@ const MedicineReview = () => {
         <h2 id="reviews" className="text-2xl font-bold mb-4">
           What others are saying
         </h2>
-        {reviews.map(review => (
-          <div key={review.id} className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-4">
+        {reviews.map(review => <div key={review.id} className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-4">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-xl font-semibold text-primary">{review.medicineName}</h3>
@@ -300,11 +265,8 @@ const MedicineReview = () => {
                 Helpful ({review.helpfulCount})
               </Button>
             </div>
-          </div>
-        ))}
+          </div>)}
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default MedicineReview;

@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { BackButton } from "./components/BackButton";
+
 const queryClient = new QueryClient();
 
 // Layout component that wraps all pages with common elements
@@ -24,7 +26,9 @@ const PageLayout = ({
     <div className="flex-grow pt-24 py-0">{children}</div>
     <Footer />
   </div>;
-const App = () => <QueryClientProvider client={queryClient}>
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
     <Toaster />
     <Sonner />
     <BrowserRouter>
@@ -50,5 +54,7 @@ const App = () => <QueryClientProvider client={queryClient}>
             </PageLayout>} />
       </Routes>
     </BrowserRouter>
-  </QueryClientProvider>;
+  </QueryClientProvider>
+);
+
 export default App;

@@ -175,35 +175,54 @@ const PharmaRepDashboard = () => {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <Card>
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Medication Effectiveness Ratings</CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="h-80">
+            <div className="h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={medicineEffectivenessData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 65 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
+                  <XAxis 
+                    dataKey="name" 
+                    angle={-45} 
+                    textAnchor="end" 
+                    height={60}
+                    tick={{ fontSize: 12 }}
+                    tickMargin={10}
+                  />
                   <YAxis domain={[0, 5]} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="effectiveness" fill="#8884d8" name="Effectiveness Rating (out of 5)" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: "#fff", 
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "6px",
+                      boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                    }} 
+                  />
+                  <Legend wrapperStyle={{ paddingTop: 10 }} />
+                  <Bar 
+                    dataKey="effectiveness" 
+                    fill="#9b87f5" 
+                    name="Effectiveness Rating (out of 5)"
+                    radius={[4, 4, 0, 0]} 
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Side Effect Severity Distribution</CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="h-80">
+            <div className="h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -214,13 +233,21 @@ const PharmaRepDashboard = () => {
                     fill="#8884d8"
                     dataKey="value"
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    labelLine={false}
                   >
                     {sideEffectsData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
-                  <Legend />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: "#fff", 
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "6px",
+                      boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                    }}
+                  />
+                  <Legend layout="horizontal" verticalAlign="bottom" align="center" />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -228,29 +255,36 @@ const PharmaRepDashboard = () => {
         </Card>
       </div>
 
-      <Card className="mb-6">
+      <Card className="mb-6 w-full">
         <CardHeader>
           <CardTitle>Condition Prevalence Among Reviewers</CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
-          <div className="h-80">
+          <div className="h-80 w-full">
             <ChartContainer
               config={{
-                condition: { color: "#8884d8" },
+                condition: { color: "#9b87f5" },
                 count: { color: "#82ca9d" },
               }}
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={conditionPrevalenceData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
+                  <XAxis 
+                    dataKey="name" 
+                    tick={{ fontSize: 12 }}
+                  />
                   <YAxis />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Legend />
-                  <Bar dataKey="count" name="Number of Patients" />
+                  <Bar 
+                    dataKey="count" 
+                    name="Number of Patients" 
+                    radius={[4, 4, 0, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </ChartContainer>

@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { Heart, Award, BookOpen, Beaker, Lightbulb, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -211,27 +212,23 @@ const AboutUs = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { name: "Shaurya Parshad", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=300" },
-            { name: "Debalina Barua", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" },
-            { name: "Neela Priya Das", image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&q=80&w=300" },
-            { name: "Aiswarya Ramachandran", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" }
+            { name: "Shaurya Parshad" },
+            { name: "Debalina Barua" },
+            { name: "Neela Priya Das" },
+            { name: "Aiswarya Ramachandran" }
           ].map((researcher, index) => (
             <motion.div 
               key={index}
               variants={fadeIn}
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 p-6 text-center"
             >
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={researcher.image} 
-                  alt={researcher.name}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
+              <div className="flex justify-center mb-4">
+                <div className="w-20 h-20 rounded-full bg-primary-light flex items-center justify-center text-primary font-bold text-xl">
+                  {researcher.name.split(' ').map(n => n[0]).join('')}
+                </div>
               </div>
-              <div className="p-4 text-center">
-                <h3 className="font-bold text-lg text-dark">{researcher.name}</h3>
-                <p className="text-gray text-sm">University of Windsor</p>
-              </div>
+              <h3 className="font-bold text-lg text-dark">{researcher.name}</h3>
+              <p className="text-gray text-sm">University of Windsor</p>
             </motion.div>
           ))}
         </div>

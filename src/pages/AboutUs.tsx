@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { Heart, Award, BookOpen, Beaker, Lightbulb, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -209,31 +210,52 @@ const AboutUs = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { name: "Shaurya Parshad", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=300" },
-            { name: "Debalina Barua", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" },
-            { name: "Neela Priya Das", image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&q=80&w=300" },
-            { name: "Aiswarya Ramachandran", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" }
-          ].map((researcher, index) => (
-            <motion.div 
-              key={index}
-              variants={fadeIn}
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
-            >
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={researcher.image} 
-                  alt={researcher.name}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
+        <div className="bg-white rounded-xl shadow-md p-8 border border-slate-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Our Team</h3>
+              <p className="text-gray mb-6">
+                A diverse group of computer science students collaborated on this project, 
+                bringing together expertise in AI, web development, and healthcare informatics.
+              </p>
+              <div className="space-y-2">
+                <p className="font-medium">Team Members:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Shaurya Parshad</li>
+                  <li>Debalina Barua</li>
+                  <li>Neela Priya Das</li>
+                  <li>Aiswarya Ramachandran</li>
+                </ul>
               </div>
-              <div className="p-4 text-center">
-                <h3 className="font-bold text-lg text-dark">{researcher.name}</h3>
-                <p className="text-gray text-sm">University of Windsor</p>
-              </div>
-            </motion.div>
-          ))}
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Project Focus</h3>
+              <p className="text-gray mb-6">
+                Our academic initiative explores the intersection of advanced software engineering
+                and healthcare technology, with a focus on:
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                  </div>
+                  <span className="text-gray">User-centered healthcare applications</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                  </div>
+                  <span className="text-gray">AI-assisted health information analysis</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                  </div>
+                  <span className="text-gray">Ethical considerations in health tech</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </motion.section>
 

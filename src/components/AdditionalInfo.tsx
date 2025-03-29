@@ -32,9 +32,9 @@ export function AdditionalInfo() {
           Lifestyle Recommendations
         </h3>
         <p className="text-gray">
-          Rest as much as possible. Stay hydrated by drinking plenty of fluids, especially water, 
-          clear broths, and warm teas with honey. Use a humidifier or take a steamy shower to help 
-          ease congestion and coughing.
+          Rest as much as possible. 
+          Stay hydrated by drinking plenty of fluids, especially water, clear broths, and warm teas with honey.
+          Follow a balanced diet, exercise regularly, get enough sleep. Avoid smoking, limit alcohol, and follow a healthy lifestyle for overall wellbeing.
         </p>
       </div>
 

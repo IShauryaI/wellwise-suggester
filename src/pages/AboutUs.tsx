@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Heart, Award, BookOpen, Beaker, Lightbulb, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -86,7 +85,7 @@ const AboutUs = () => {
         <div className="flex flex-col md:flex-row gap-12 items-center">
           <div className="md:w-1/2">
             <img 
-              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600"
+              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=600"
               alt="Healthcare Innovation"
               className="rounded-2xl shadow-lg hover-lift-effect"
             />

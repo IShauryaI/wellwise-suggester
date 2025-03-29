@@ -1,5 +1,4 @@
 
-import { CustomButton } from "./ui/CustomButton";
 import { HelpCircle, Clipboard, UserCheck, BarChart3 } from "lucide-react";
 
 export function Features() {
@@ -57,9 +56,6 @@ export function Features() {
                 <p className="text-gray mb-4">
                   {feature.description}
                 </p>
-                <CustomButton variant="outline" size="sm">
-                  Learn More
-                </CustomButton>
               </div>
               
               {/* Decorative shapes */}

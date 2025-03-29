@@ -13,9 +13,17 @@ export function AdditionalInfo() {
           When to Seek Medical Help
         </h3>
         <p className="text-gray">
-          If symptoms persist beyond 3 days or worsen, consult a healthcare professional. 
-          Seek immediate medical attention if you experience difficulty breathing, severe pain, 
-          high fever (above 103°F/39.4°C), or sudden worsening of symptoms.
+          This AI system provides general recommendations and is not a substitute for professional medical advice. Seek medical attention if you experience:
+        </p>
+        <ul className="list-disc pl-5 mt-2 text-gray">
+          <li>Severe or worsening symptoms</li>
+          <li>Allergic reactions (swelling, breathing issues, rash)</li>
+          <li>High fever or persistent pain</li>
+          <li>Chest pain, difficulty breathing, confusion, or fainting</li>
+          <li>Severe medication side effects</li>
+        </ul>
+        <p className="text-gray mt-2 font-semibold">
+          🚨 In emergencies, call 911 or visit the nearest hospital immediately.
         </p>
       </div>
 

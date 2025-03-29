@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import { Heart, Award, BookOpen, Beaker, Lightbulb, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const AboutUs = () => {
   useEffect(() => {
@@ -27,6 +29,14 @@ const AboutUs = () => {
       }
     }
   };
+
+  // Team members data
+  const teamMembers = [
+    { name: "Shaurya Parshad", role: "Full Stack Developer", initial: "SP" },
+    { name: "Debalina Barua", role: "UI/UX Designer", initial: "DB" },
+    { name: "Neela Priya Das", role: "Backend Developer", initial: "ND" },
+    { name: "Aiswarya Ramachandran", role: "Data Scientist", initial: "AR" }
+  ];
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
@@ -210,53 +220,66 @@ const AboutUs = () => {
           </p>
         </div>
         
-        <div className="bg-white rounded-xl shadow-md p-8 border border-slate-100">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Our Team</h3>
-              <p className="text-gray mb-6">
-                A diverse group of computer science students collaborated on this project, 
-                bringing together expertise in AI, web development, and healthcare informatics.
-              </p>
-              <div className="space-y-2">
-                <p className="font-medium">Team Members:</p>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Shaurya Parshad</li>
-                  <li>Debalina Barua</li>
-                  <li>Neela Priya Das</li>
-                  <li>Aiswarya Ramachandran</li>
-                </ul>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+          {/* Team Collaboration Image */}
+          <motion.div
+            variants={fadeIn}
+            className="rounded-xl overflow-hidden shadow-lg"
+          >
+            <img 
+              src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=1200"
+              alt="Team Collaboration"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+          
+          {/* Team Description */}
+          <motion.div 
+            variants={fadeIn}
+            className="flex flex-col justify-center"
+          >
+            <h3 className="text-2xl font-bold text-dark mb-4">Collaborative Development</h3>
+            <p className="text-gray mb-6">
+              Our team embraced agile methodologies to deliver this innovative healthcare research platform.
+              Working collaboratively across multiple disciplines, we combined expertise in software engineering,
+              data science, and UI/UX design to create a seamless user experience while maintaining academic rigor.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {teamMembers.map((member, index) => (
+                <div key={index} className="flex items-center bg-light p-2 rounded-full">
+                  <Avatar className="h-8 w-8 mr-2 bg-primary">
+                    <AvatarFallback className="bg-primary text-white text-xs">
+                      {member.initial}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="text-sm font-medium text-dark">{member.name}</span>
+                </div>
+              ))}
             </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Project Focus</h3>
-              <p className="text-gray mb-6">
-                Our academic initiative explores the intersection of advanced software engineering
-                and healthcare technology, with a focus on:
-              </p>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
-                    <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  </div>
-                  <span className="text-gray">User-centered healthcare applications</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
-                    <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  </div>
-                  <span className="text-gray">AI-assisted health information analysis</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
-                    <div className="w-2 h-2 rounded-full bg-primary"></div>
-                  </div>
-                  <span className="text-gray">Ethical considerations in health tech</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          </motion.div>
         </div>
+        
+        {/* Skills & Technologies */}
+        <motion.div 
+          variants={staggerItems}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+        >
+          {[
+            { title: "Front-End", content: "React, TypeScript, Tailwind CSS" },
+            { title: "Back-End", content: "Node.js, Express, Firebase" },
+            { title: "Data Analysis", content: "Python, TensorFlow, Natural Language Processing" },
+            { title: "Project Management", content: "Agile, Scrum, Version Control" }
+          ].map((skill, index) => (
+            <motion.div 
+              key={index}
+              variants={fadeIn}
+              className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-shadow"
+            >
+              <h4 className="font-bold text-dark mb-2">{skill.title}</h4>
+              <p className="text-sm text-gray">{skill.content}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.section>
 
       {/* Forward-Looking Section */}

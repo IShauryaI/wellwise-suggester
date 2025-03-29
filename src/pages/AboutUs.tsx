@@ -190,7 +190,7 @@ const AboutUs = () => {
         </div>
       </motion.section>
 
-      {/* Research Team Section */}
+      {/* Project Team Section */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -201,10 +201,10 @@ const AboutUs = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-dark mb-4 flex items-center justify-center">
             <Users className="text-primary mr-3 h-7 w-7" />
-            Research Team
+            Project Team
           </h2>
           <p className="text-gray max-w-3xl mx-auto">
-            This project was developed by a dedicated team of researchers at the University of Windsor, Ontario,
+            This project was developed by the students at the University of Windsor, Ontario,
             as part of the Advanced Software Engineering Course.
           </p>
         </div>

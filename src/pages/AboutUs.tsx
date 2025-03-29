@@ -153,19 +153,19 @@ const AboutUs = () => {
                 <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
                 </div>
-                <span className="text-gray">Examine machine learning applications in health data analysis</span>
-              </li>
-              <li className="flex items-start">
-                <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
-                </div>
-                <span className="text-gray">Investigate ethical considerations in AI-driven healthcare</span>
+                <span className="text-gray">Examine artificial intelligence applications in health data analysis</span>
               </li>
               <li className="flex items-start">
                 <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
                   <div className="w-2 h-2 rounded-full bg-primary"></div>
                 </div>
                 <span className="text-gray">Develop transparent, privacy-conscious analytical models</span>
+              </li>
+              <li className="flex items-start">
+                <div className="rounded-full bg-primary/10 p-1 mr-3 mt-1">
+                  <div className="w-2 h-2 rounded-full bg-primary"></div>
+                </div>
+                <span className="text-gray">Promote responsible AI adoption in healthcare settings</span>
               </li>
             </ul>
           </motion.div>

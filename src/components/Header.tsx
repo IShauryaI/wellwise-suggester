@@ -23,7 +23,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Updated navigation items
+  // Updated navigation items with About Us link
   const navItems = [
     { name: "Home", path: "/" },
     { name: "For PharmaRep", path: "/pharma-rep" },

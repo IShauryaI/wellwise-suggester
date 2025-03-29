@@ -15,6 +15,7 @@ import PharmaRep from "./pages/PharmaRep";
 import PharmaRepLogin from "./pages/PharmaRepLogin";
 import PharmaRepSignup from "./pages/PharmaRepSignup";
 import PharmaRepDashboard from "./pages/PharmaRepDashboard";
+import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -80,6 +81,9 @@ const App = () => (
               </PageLayout>} />
           <Route path="/pharma-rep" element={<PageLayout>
                 <PharmaRep />
+              </PageLayout>} />
+          <Route path="/about-us" element={<PageLayout showBackButton={false} showAdditionalInfo={false}>
+                <AboutUs />
               </PageLayout>} />
           <Route path="*" element={<PageLayout>
                 <NotFound />

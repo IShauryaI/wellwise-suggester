@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Star, ThumbsUp, Filter, ArrowLeft } from "lucide-react";
+import { Star, ThumbsUp, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -243,9 +242,6 @@ const PharmaRepDashboard = () => {
                       className="pr-8"
                     />
                   </div>
-                  <Button variant="outline" size="icon">
-                    <Filter className="h-4 w-4" />
-                  </Button>
                 </div>
               </div>
             </CardHeader>

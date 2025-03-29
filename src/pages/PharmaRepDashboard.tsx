@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { Star, ThumbsUp, Download, Filter } from "lucide-react";
+import { Star, ThumbsUp, Download, Filter, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -41,6 +41,7 @@ const sideEffectsData = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+// Expanded reviews data with multiple reviews for each medicine
 const reviews = [
   {
     id: "1",
@@ -59,6 +60,22 @@ const reviews = [
     helpfulCount: 24
   },
   {
+    id: "4",
+    reviewer: "David L.",
+    date: "March 12, 2025",
+    medicineName: "Metformin 500mg",
+    condition: "Type 2 Diabetes",
+    text: "This medication has been a game changer for my diabetes management. I experienced some stomach upset for the first few days, but that went away quickly. My A1C has dropped significantly in just 3 months.",
+    ratings: {
+      effectiveness: 5,
+      sideEffects: 4,
+      easeOfUse: 5,
+      satisfaction: 5
+    },
+    wouldRecommend: "Yes",
+    helpfulCount: 16
+  },
+  {
     id: "2",
     reviewer: "Michael T.",
     date: "March 10, 2025",
@@ -75,6 +92,22 @@ const reviews = [
     helpfulCount: 18
   },
   {
+    id: "5",
+    reviewer: "Jennifer K.",
+    date: "March 8, 2025",
+    medicineName: "Lisinopril 10mg",
+    condition: "Hypertension",
+    text: "Lisinopril worked well for my blood pressure but the cough was unbearable. Had to switch to another medication after 2 months. Would only recommend if other options don't work for you.",
+    ratings: {
+      effectiveness: 4,
+      sideEffects: 1,
+      easeOfUse: 5,
+      satisfaction: 2
+    },
+    wouldRecommend: "No",
+    helpfulCount: 22
+  },
+  {
     id: "3",
     reviewer: "Taylor W.",
     date: "March 5, 2025",
@@ -89,12 +122,54 @@ const reviews = [
     },
     wouldRecommend: "Yes",
     helpfulCount: 31
+  },
+  {
+    id: "6",
+    reviewer: "Robert P.",
+    date: "March 2, 2025",
+    medicineName: "Atorvastatin 20mg",
+    condition: "High Cholesterol",
+    text: "Been taking Atorvastatin for about a year now. My cholesterol levels have improved dramatically. I did have some muscle pain in the beginning but it went away after a few weeks. Overall very satisfied with this medication.",
+    ratings: {
+      effectiveness: 5,
+      sideEffects: 3,
+      easeOfUse: 5,
+      satisfaction: 4
+    },
+    wouldRecommend: "Yes",
+    helpfulCount: 19
   }
 ];
 
+// Generate a list of unique medicines from the reviews
+const getMedicinesList = () => {
+  const medicinesMap = new Map();
+  
+  reviews.forEach(review => {
+    if (!medicinesMap.has(review.medicineName)) {
+      // Count reviews and calculate average rating for each medicine
+      const medicineReviews = reviews.filter(r => r.medicineName === review.medicineName);
+      const avgRating = medicineReviews.reduce((sum, r) => sum + r.ratings.satisfaction, 0) / medicineReviews.length;
+      const reviewCount = medicineReviews.length;
+      
+      medicinesMap.set(review.medicineName, {
+        name: review.medicineName,
+        reviewCount,
+        averageRating: avgRating.toFixed(1),
+        primaryCondition: review.condition
+      });
+    }
+  });
+  
+  return Array.from(medicinesMap.values());
+};
+
 const PharmaRepDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [selectedMedicine, setSelectedMedicine] = useState(null);
+  
+  const medicines = getMedicinesList();
+  
   const renderReadOnlyStars = (count) => {
     return (
       <div className="flex">
@@ -110,10 +185,22 @@ const PharmaRepDashboard = () => {
     );
   };
 
-  const filteredReviews = reviews.filter(review =>
-    review.medicineName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    review.condition.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredMedicines = medicines.filter(medicine =>
+    medicine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    medicine.primaryCondition.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
+  const filteredReviews = selectedMedicine
+    ? reviews.filter(review => review.medicineName === selectedMedicine)
+    : [];
+    
+  const handleMedicineClick = (medicineName) => {
+    setSelectedMedicine(medicineName);
+  };
+  
+  const handleBackToList = () => {
+    setSelectedMedicine(null);
+  };
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -127,214 +214,297 @@ const PharmaRepDashboard = () => {
         </div>
       </div>
 
-      {/* Dashboard Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>Total Reviews</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold text-primary">432</p>
-            <p className="text-sm text-gray-500 mt-1">+12% from last month</p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>Average Satisfaction</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold text-primary">4.2/5</p>
-            <p className="text-sm text-gray-500 mt-1">Based on all reviews</p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>Most Reviewed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold text-primary">Metformin</p>
-            <p className="text-sm text-gray-500 mt-1">145 reviews</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle>Medication Effectiveness Ratings</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="h-80 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={medicineEffectivenessData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 65 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis 
-                    dataKey="name" 
-                    angle={-45} 
-                    textAnchor="end" 
-                    height={60}
-                    tick={{ fontSize: 12 }}
-                    tickMargin={10}
-                  />
-                  <YAxis domain={[0, 5]} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: "#fff", 
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "6px",
-                      boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-                    }} 
-                  />
-                  <Legend wrapperStyle={{ paddingTop: 10 }} />
-                  <Bar 
-                    dataKey="effectiveness" 
-                    fill="#9b87f5" 
-                    name="Effectiveness Rating (out of 5)"
-                    radius={[4, 4, 0, 0]} 
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle>Side Effect Severity Distribution</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="h-80 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={sideEffectsData}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={120}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    labelLine={false}
-                  >
-                    {sideEffectsData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: "#fff", 
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "6px",
-                      boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-                    }}
-                  />
-                  <Legend layout="horizontal" verticalAlign="bottom" align="center" />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Reviews Section */}
-      <Card>
-        <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2">
-          <div>
-            <CardTitle>Customer Medicine Reviews</CardTitle>
-            <CardDescription>Detailed feedback from patients</CardDescription>
-          </div>
-          <div className="mt-4 sm:mt-0 w-full sm:w-auto">
-            <div className="flex gap-2">
-              <div className="relative w-full sm:w-64">
-                <Input
-                  type="text"
-                  placeholder="Search by medicine or condition..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pr-8"
-                />
-              </div>
-              <Button variant="outline" size="icon">
-                <Filter className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableCaption>A list of recent medicine reviews</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Medicine</TableHead>
-                <TableHead>Condition</TableHead>
-                <TableHead>Effectiveness</TableHead>
-                <TableHead>Side Effects</TableHead>
-                <TableHead>Overall</TableHead>
-                <TableHead>Would Recommend</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredReviews.map((review) => (
-                <TableRow key={review.id}>
-                  <TableCell className="font-medium">{review.medicineName}</TableCell>
-                  <TableCell>{review.condition}</TableCell>
-                  <TableCell>{renderReadOnlyStars(review.ratings.effectiveness)}</TableCell>
-                  <TableCell>{renderReadOnlyStars(review.ratings.sideEffects)}</TableCell>
-                  <TableCell>{renderReadOnlyStars(review.ratings.satisfaction)}</TableCell>
-                  <TableCell>{review.wouldRecommend}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-          {/* Reviews List */}
-          <div className="mt-6 space-y-4">
-            <h3 className="text-lg font-semibold">Review Details</h3>
+      {!selectedMedicine ? (
+        <>
+          {/* Dashboard Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle>Total Reviews</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-primary">{reviews.length}</p>
+                <p className="text-sm text-gray-500 mt-1">+12% from last month</p>
+              </CardContent>
+            </Card>
             
-            {filteredReviews.map((review) => (
-              <Card key={review.id} className="bg-slate-50">
-                <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-base">{review.medicineName}</CardTitle>
-                      <CardDescription>
-                        Reviewed by {review.reviewer} on {review.date}
-                      </CardDescription>
-                    </div>
-                    <div className="flex items-center">
-                      {renderReadOnlyStars(review.ratings.satisfaction)}
-                      <span className="ml-2 text-sm font-medium">
-                        {review.ratings.satisfaction}/5
-                      </span>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="pb-2">
-                  <p className="text-sm">{review.text}</p>
-                </CardContent>
-                <CardFooter className="flex flex-wrap gap-4 text-sm">
-                  <div>
-                    <span className="font-semibold">Condition:</span> {review.condition}
-                  </div>
-                  <div>
-                    <span className="font-semibold">Would Recommend:</span> {review.wouldRecommend}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <ThumbsUp className="h-4 w-4 text-gray-500" />
-                    <span>{review.helpfulCount} found this helpful</span>
-                  </div>
-                </CardFooter>
-              </Card>
-            ))}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle>Average Satisfaction</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-primary">
+                  {(reviews.reduce((sum, review) => sum + review.ratings.satisfaction, 0) / reviews.length).toFixed(1)}/5
+                </p>
+                <p className="text-sm text-gray-500 mt-1">Based on all reviews</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle>Medications Reviewed</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-primary">{medicines.length}</p>
+                <p className="text-sm text-gray-500 mt-1">Unique medications</p>
+              </CardContent>
+            </Card>
           </div>
-        </CardContent>
-      </Card>
+
+          {/* Charts Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Medication Effectiveness Ratings</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="h-80 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={medicineEffectivenessData}
+                      margin={{ top: 5, right: 30, left: 20, bottom: 65 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        dataKey="name" 
+                        angle={-45} 
+                        textAnchor="end" 
+                        height={60}
+                        tick={{ fontSize: 12 }}
+                        tickMargin={10}
+                      />
+                      <YAxis domain={[0, 5]} />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: "#fff", 
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "6px",
+                          boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                        }} 
+                      />
+                      <Legend wrapperStyle={{ paddingTop: 10 }} />
+                      <Bar 
+                        dataKey="effectiveness" 
+                        fill="#9b87f5" 
+                        name="Effectiveness Rating (out of 5)"
+                        radius={[4, 4, 0, 0]} 
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Side Effect Severity Distribution</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="h-80 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={sideEffectsData}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={120}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        labelLine={false}
+                      >
+                        {sideEffectsData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: "#fff", 
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "6px",
+                          boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                        }}
+                      />
+                      <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Medicines List */}
+          <Card>
+            <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2">
+              <div>
+                <CardTitle>Reviewed Medications</CardTitle>
+                <CardDescription>Click on a medication to view patient reviews</CardDescription>
+              </div>
+              <div className="mt-4 sm:mt-0 w-full sm:w-auto">
+                <div className="flex gap-2">
+                  <div className="relative w-full sm:w-64">
+                    <Input
+                      type="text"
+                      placeholder="Search by medicine or condition..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pr-8"
+                    />
+                  </div>
+                  <Button variant="outline" size="icon">
+                    <Filter className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableCaption>A list of reviewed medications</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Medication</TableHead>
+                    <TableHead>Primary Condition</TableHead>
+                    <TableHead>Reviews</TableHead>
+                    <TableHead>Avg. Rating</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredMedicines.map((medicine) => (
+                    <TableRow key={medicine.name} className="cursor-pointer hover:bg-slate-50">
+                      <TableCell className="font-medium">{medicine.name}</TableCell>
+                      <TableCell>{medicine.primaryCondition}</TableCell>
+                      <TableCell>{medicine.reviewCount}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          {medicine.averageRating}
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => handleMedicineClick(medicine.name)}
+                        >
+                          View Reviews
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </>
+      ) : (
+        /* Reviews for selected medicine */
+        <Card>
+          <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2">
+            <div>
+              <div className="flex items-center mb-2">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleBackToList} 
+                  className="mr-2 p-0 h-8 w-8"
+                >
+                  <ArrowLeft className="h-5 w-5" />
+                </Button>
+                <CardTitle>{selectedMedicine} Reviews</CardTitle>
+              </div>
+              <CardDescription>Patient feedback and experiences</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6">
+              <Card className="bg-slate-50">
+                <CardContent className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">Reviews</h3>
+                      <p className="text-2xl font-bold">{filteredReviews.length}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">Average Rating</h3>
+                      <div className="flex items-center gap-2">
+                        <p className="text-2xl font-bold">
+                          {(filteredReviews.reduce((sum, review) => sum + review.ratings.satisfaction, 0) / filteredReviews.length).toFixed(1)}
+                        </p>
+                        <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">Would Recommend</h3>
+                      <p className="text-2xl font-bold">
+                        {Math.round(filteredReviews.filter(review => review.wouldRecommend === "Yes").length / filteredReviews.length * 100)}%
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Detailed Reviews */}
+            <div className="space-y-4">
+              {filteredReviews.map((review) => (
+                <Card key={review.id} className="bg-slate-50">
+                  <CardHeader className="pb-2">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="text-base">{review.reviewer}</CardTitle>
+                        <CardDescription>
+                          Reviewed on {review.date}
+                        </CardDescription>
+                      </div>
+                      <div className="flex items-center">
+                        {renderReadOnlyStars(review.ratings.satisfaction)}
+                        <span className="ml-2 text-sm font-medium">
+                          {review.ratings.satisfaction}/5
+                        </span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm">{review.text}</p>
+                    
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+                      <div>
+                        <h4 className="text-xs text-gray-500 mb-1">Effectiveness</h4>
+                        {renderReadOnlyStars(review.ratings.effectiveness)}
+                      </div>
+                      <div>
+                        <h4 className="text-xs text-gray-500 mb-1">Side Effects</h4>
+                        {renderReadOnlyStars(review.ratings.sideEffects)}
+                      </div>
+                      <div>
+                        <h4 className="text-xs text-gray-500 mb-1">Ease of Use</h4>
+                        {renderReadOnlyStars(review.ratings.easeOfUse)}
+                      </div>
+                      <div>
+                        <h4 className="text-xs text-gray-500 mb-1">Overall</h4>
+                        {renderReadOnlyStars(review.ratings.satisfaction)}
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex flex-wrap gap-4 text-sm">
+                    <div>
+                      <span className="font-semibold">Condition:</span> {review.condition}
+                    </div>
+                    <div>
+                      <span className="font-semibold">Would Recommend:</span> {review.wouldRecommend}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <ThumbsUp className="h-4 w-4 text-gray-500" />
+                      <span>{review.helpfulCount} found this helpful</span>
+                    </div>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };

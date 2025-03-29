@@ -11,7 +11,7 @@ export function Features() {
     {
       icon: <Clipboard className="w-8 h-8" />,
       title: "Community Reviews",
-      description: "Access thousands of authentic user reviews to make informed healthcare decisions. Our platform collects detailed feedback on medications, skincare products, and supplements, helping you learn from others' experiences.",
+      description: "Access authentic user reviews to make informed healthcare decisions. Our platform collects detailed feedback on medications helping you learn from others' experiences.",
     },
     {
       icon: <UserCheck className="w-8 h-8" />,

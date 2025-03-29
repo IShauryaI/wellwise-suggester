@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Heart, Smile } from "lucide-react";
@@ -23,12 +22,11 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Updated navigation items with About Us link
+  // Updated navigation items without Contact Us link
   const navItems = [
     { name: "Home", path: "/" },
     { name: "For PharmaRep", path: "/pharma-rep" },
     { name: "About Us", path: "/about-us" },
-    { name: "Contact Us", path: "/contact-us" },
   ];
 
   return (

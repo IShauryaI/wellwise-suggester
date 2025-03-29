@@ -6,7 +6,7 @@ export function Features() {
     {
       icon: <HelpCircle className="w-8 h-8" />,
       title: "AI-Powered Recommendations",
-      description: "Our advanced BioBERT AI analyzes your symptoms and provides accurate treatment suggestions based on the latest medical research and data. Get personalized recommendations tailored specifically to your needs.",
+      description: "Our website uses AI to analyze your symptoms and provides accurate treatment suggestions based on the latest medical research and data. Get personalized recommendations tailored specifically to your needs.",
     },
     {
       icon: <Clipboard className="w-8 h-8" />,

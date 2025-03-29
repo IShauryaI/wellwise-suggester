@@ -14,11 +14,6 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import {
   Card,
   CardContent,
   CardDescription,
@@ -95,14 +90,6 @@ const reviews = [
     wouldRecommend: "Yes",
     helpfulCount: 31
   }
-];
-
-const conditionPrevalenceData = [
-  { name: "Type 2 Diabetes", count: 145 },
-  { name: "Hypertension", count: 203 },
-  { name: "Seasonal Allergies", count: 189 },
-  { name: "Anxiety", count: 98 },
-  { name: "Asthma", count: 76 },
 ];
 
 const PharmaRepDashboard = () => {
@@ -254,43 +241,6 @@ const PharmaRepDashboard = () => {
           </CardContent>
         </Card>
       </div>
-
-      <Card className="mb-6 w-full">
-        <CardHeader>
-          <CardTitle>Condition Prevalence Among Reviewers</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <div className="h-80 w-full">
-            <ChartContainer
-              config={{
-                condition: { color: "#9b87f5" },
-                count: { color: "#82ca9d" },
-              }}
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={conditionPrevalenceData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis 
-                    dataKey="name" 
-                    tick={{ fontSize: 12 }}
-                  />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Bar 
-                    dataKey="count" 
-                    name="Number of Patients" 
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Reviews Section */}
       <Card>

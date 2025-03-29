@@ -307,90 +307,6 @@ const MedicineSuggestions = () => {
     );
   };
 
-  const productCategories = [{
-    title: "For Fever and Pain Relief",
-    products: [{
-      name: "Acetaminophen Extra Strength",
-      price: "$8.99",
-      description: "Effective pain reliever and fever reducer. Suitable for headaches, muscle aches, backache, and minor arthritis pain.",
-      rating: 5,
-      reviews: 425,
-      image: "/api/placeholder/200/200"
-    }, {
-      name: "Ibuprofen Tablets",
-      price: "$7.49",
-      description: "Non-steroidal anti-inflammatory drug (NSAID) that reduces fever and relieves pain or inflammation.",
-      rating: 4,
-      reviews: 312,
-      image: "/api/placeholder/200/200"
-    }, {
-      name: "Aspirin Tablets",
-      price: "$6.99",
-      description: "Pain reliever and fever reducer. Also has anti-inflammatory properties to reduce swelling and inflammation.",
-      rating: 4,
-      reviews: 289,
-      image: "/api/placeholder/200/200"
-    }]
-  }, {
-    title: "For Sore Throat Relief",
-    products: [{
-      name: "Menthol Throat Lozenges",
-      price: "$5.99",
-      description: "Soothes sore throat and provides temporary relief from throat irritation with cooling menthol.",
-      rating: 5,
-      reviews: 189,
-      image: "/api/placeholder/200/200"
-    }, {
-      name: "Honey Lemon Throat Spray",
-      price: "$9.49",
-      description: "Fast-acting spray coats the throat with soothing honey and lemon to provide immediate relief.",
-      rating: 4,
-      reviews: 142,
-      image: "/api/placeholder/200/200"
-    }, {
-      name: "Warm Salt Water Gargle Kit",
-      price: "$4.99",
-      description: "Traditional remedy for sore throat. Contains pharmaceutical-grade salt and measuring cup for proper mixing.",
-      rating: 4,
-      reviews: 98,
-      image: "/api/placeholder/200/200"
-    }]
-  }, {
-    title: "For Cough Relief",
-    products: [{
-      name: "Cough Syrup with Dextromethorphan",
-      price: "$11.99",
-      description: "Temporarily relieves cough due to minor throat and bronchial irritation associated with the common cold.",
-      rating: 4,
-      reviews: 205,
-      image: "/api/placeholder/200/200"
-    }, {
-      name: "Honey-Based Cough Drops",
-      price: "$6.49",
-      description: "Natural honey-based lozenges that soothe the throat and suppress coughing with natural ingredients.",
-      rating: 5,
-      reviews: 176,
-      image: "/api/placeholder/200/200"
-    }, {
-      name: "Chest Rub Ointment",
-      price: "$8.99",
-      description: "Medicated vapor rub that helps suppress coughs and relieve chest congestion when applied topically.",
-      rating: 4,
-      reviews: 132,
-      image: "/api/placeholder/200/200"
-    }]
-  }];
-
-  const renderStars = (rating: number) => {
-    const stars = [];
-    for (let i = 0; i < 5; i++) {
-      stars.push(<span key={i} className={`${i < rating ? "text-amber-500" : "text-gray-300"}`}>
-          ★
-        </span>);
-    }
-    return stars;
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
@@ -464,41 +380,6 @@ const MedicineSuggestions = () => {
                 </div>)}
             </div>
           </section>
-
-          {productCategories.map((category, categoryIndex) => <section key={categoryIndex} className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-dark mb-6 pb-4 border-b border-slate-200">
-                {category.title}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {category.products.map((product, productIndex) => <Card key={productIndex} className="border border-slate-200 hover-lift-effect overflow-hidden">
-                    <div className="h-48 bg-muted flex items-center justify-center">
-                      <img src={product.image} alt={product.name} className="max-h-40 object-contain" />
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-semibold mb-2 text-dark">{product.name}</h3>
-                      <div className="text-primary font-bold text-lg mb-2">{product.price}</div>
-                      <p className="text-gray text-sm mb-4 min-h-[80px]">{product.description}</p>
-                      
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center gap-2">
-                          <div className="flex">{renderStars(product.rating)}</div>
-                          <span className="text-gray text-sm">({product.reviews})</span>
-                        </div>
-                        <span className="text-secondary text-sm font-medium">In Stock</span>
-                      </div>
-                      
-                      <div className="flex gap-2">
-                        <CustomButton variant="primary" size="sm">
-                          Buy Now
-                        </CustomButton>
-                        <CustomButton variant="outline" size="sm">
-                          Learn More
-                        </CustomButton>
-                      </div>
-                    </CardContent>
-                  </Card>)}
-              </div>
-            </section>)}
 
           <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
             <h2 className="text-2xl font-bold text-dark mb-6">

@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { Heart, Award, BookOpen, Flask, Lightbulb, Users } from "lucide-react";
+import { Heart, Award, BookOpen, Beaker, Lightbulb, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const AboutUs = () => {
@@ -146,7 +146,7 @@ const AboutUs = () => {
             className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow border border-slate-100"
           >
             <div className="feature-icon mb-6">
-              <Flask className="h-8 w-8" />
+              <Beaker className="h-8 w-8" />
             </div>
             <h3 className="text-2xl font-bold text-dark mb-4">Academic Exploration</h3>
             <ul className="space-y-3">
@@ -177,7 +177,7 @@ const AboutUs = () => {
             className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow border border-slate-100"
           >
             <div className="feature-icon mb-6">
-              <Flask className="h-8 w-8" />
+              <Beaker className="h-8 w-8" />
             </div>
             <h3 className="text-2xl font-bold text-dark mb-4">Pharmaceutical Research Applications</h3>
             <p className="text-gray mb-4">Our platform provides valuable insights for medication research by:</p>

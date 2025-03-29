@@ -1,5 +1,5 @@
 
-import { HelpCircle, Clipboard, UserCheck, BarChart3 } from "lucide-react";
+import { HelpCircle, Clipboard, UserCheck } from "lucide-react";
 
 export function Features() {
   const features = [
@@ -17,11 +17,6 @@ export function Features() {
       icon: <UserCheck className="w-8 h-8" />,
       title: "Personalized Care",
       description: "Get customized healthcare solutions tailored to your unique needs and preferences. Our system continuously learns from your feedback to improve future recommendations, creating a truly personalized health experience.",
-    },
-    {
-      icon: <BarChart3 className="w-8 h-8" />,
-      title: "Advanced Analytics",
-      description: "Our platform uses sophisticated analytics to help you understand the effectiveness of different healthcare products. Track your progress, monitor improvements, and make data-driven decisions about your health.",
     }
   ];
 

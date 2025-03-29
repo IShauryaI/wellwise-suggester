@@ -1,9 +1,6 @@
-
 import { useEffect } from "react";
 import { Heart, Award, BookOpen, Beaker, Lightbulb, Users } from "lucide-react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const AboutUs = () => {
   useEffect(() => {
@@ -29,14 +26,6 @@ const AboutUs = () => {
       }
     }
   };
-
-  // Team members data
-  const teamMembers = [
-    { name: "Shaurya Parshad", role: "Full Stack Developer", initial: "SP" },
-    { name: "Debalina Barua", role: "UI/UX Designer", initial: "DB" },
-    { name: "Neela Priya Das", role: "Backend Developer", initial: "ND" },
-    { name: "Aiswarya Ramachandran", role: "Data Scientist", initial: "AR" }
-  ];
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
@@ -220,66 +209,32 @@ const AboutUs = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-          {/* Team Collaboration Image */}
-          <motion.div
-            variants={fadeIn}
-            className="rounded-xl overflow-hidden shadow-lg"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=1200"
-              alt="Team Collaboration"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-          
-          {/* Team Description */}
-          <motion.div 
-            variants={fadeIn}
-            className="flex flex-col justify-center"
-          >
-            <h3 className="text-2xl font-bold text-dark mb-4">Collaborative Development</h3>
-            <p className="text-gray mb-6">
-              Our team embraced agile methodologies to deliver this innovative healthcare research platform.
-              Working collaboratively across multiple disciplines, we combined expertise in software engineering,
-              data science, and UI/UX design to create a seamless user experience while maintaining academic rigor.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="flex items-center bg-light p-2 rounded-full">
-                  <Avatar className="h-8 w-8 mr-2 bg-primary">
-                    <AvatarFallback className="bg-primary text-white text-xs">
-                      {member.initial}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="text-sm font-medium text-dark">{member.name}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-        
-        {/* Skills & Technologies */}
-        <motion.div 
-          variants={staggerItems}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { title: "Front-End", content: "React, TypeScript, Tailwind CSS" },
-            { title: "Back-End", content: "Node.js, Express, Firebase" },
-            { title: "Data Analysis", content: "Python, TensorFlow, Natural Language Processing" },
-            { title: "Project Management", content: "Agile, Scrum, Version Control" }
-          ].map((skill, index) => (
+            { name: "Shaurya Parshad", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=300" },
+            { name: "Debalina Barua", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" },
+            { name: "Neela Priya Das", image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&q=80&w=300" },
+            { name: "Aiswarya Ramachandran", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" }
+          ].map((researcher, index) => (
             <motion.div 
               key={index}
               variants={fadeIn}
-              className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-shadow"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
             >
-              <h4 className="font-bold text-dark mb-2">{skill.title}</h4>
-              <p className="text-sm text-gray">{skill.content}</p>
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src={researcher.image} 
+                  alt={researcher.name}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="font-bold text-lg text-dark">{researcher.name}</h3>
+                <p className="text-gray text-sm">University of Windsor</p>
+              </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </motion.section>
 
       {/* Forward-Looking Section */}

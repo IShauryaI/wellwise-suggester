@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Star, ThumbsUp, Download, Filter, ArrowLeft } from "lucide-react";
+import { Star, ThumbsUp, Filter, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -186,12 +186,6 @@ const PharmaRepDashboard = () => {
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-primary">Pharmaceutical Insights Dashboard</h1>
-        <div className="flex gap-2 mt-4 sm:mt-0">
-          <Button variant="outline" size="sm">
-            <Download className="mr-2 h-4 w-4" />
-            Export Data
-          </Button>
-        </div>
       </div>
 
       {!selectedMedicine ? (

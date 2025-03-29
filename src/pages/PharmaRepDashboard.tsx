@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Star, ThumbsUp, Download, Filter, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,25 +22,6 @@ import {
 } from "@/components/ui/card";
 
 // Sample data for demonstration
-const medicineEffectivenessData = [
-  { name: "Metformin", effectiveness: 4.2 },
-  { name: "Lisinopril", effectiveness: 3.9 },
-  { name: "Atorvastatin", effectiveness: 4.5 },
-  { name: "Levothyroxine", effectiveness: 4.7 },
-  { name: "Omeprazole", effectiveness: 4.1 },
-  { name: "Cetirizine", effectiveness: 4.8 },
-];
-
-const sideEffectsData = [
-  { name: "None", value: 42 },
-  { name: "Mild", value: 28 },
-  { name: "Moderate", value: 18 },
-  { name: "Severe", value: 12 },
-];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-// Expanded reviews data with multiple reviews for each medicine
 const reviews = [
   {
     id: "1",
@@ -247,88 +227,6 @@ const PharmaRepDashboard = () => {
               <CardContent>
                 <p className="text-3xl font-bold text-primary">{medicines.length}</p>
                 <p className="text-sm text-gray-500 mt-1">Unique medications</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Charts Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle>Medication Effectiveness Ratings</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={medicineEffectivenessData}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 65 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        dataKey="name" 
-                        angle={-45} 
-                        textAnchor="end" 
-                        height={60}
-                        tick={{ fontSize: 12 }}
-                        tickMargin={10}
-                      />
-                      <YAxis domain={[0, 5]} />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: "#fff", 
-                          border: "1px solid #e2e8f0",
-                          borderRadius: "6px",
-                          boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-                        }} 
-                      />
-                      <Legend wrapperStyle={{ paddingTop: 10 }} />
-                      <Bar 
-                        dataKey="effectiveness" 
-                        fill="#9b87f5" 
-                        name="Effectiveness Rating (out of 5)"
-                        radius={[4, 4, 0, 0]} 
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle>Side Effect Severity Distribution</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={sideEffectsData}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={120}
-                        fill="#8884d8"
-                        dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                        labelLine={false}
-                      >
-                        {sideEffectsData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: "#fff", 
-                          border: "1px solid #e2e8f0",
-                          borderRadius: "6px",
-                          boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-                        }}
-                      />
-                      <Legend layout="horizontal" verticalAlign="bottom" align="center" />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
               </CardContent>
             </Card>
           </div>

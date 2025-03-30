@@ -314,7 +314,7 @@ const PharmaRepDashboard = () => {
             <div className="mb-6">
               <Card className="bg-slate-50">
                 <CardContent className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Reviews</h3>
                       <p className="text-2xl font-bold">{filteredReviews.length}</p>
@@ -327,12 +327,6 @@ const PharmaRepDashboard = () => {
                         </p>
                         <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                       </div>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-500">Would Recommend</h3>
-                      <p className="text-2xl font-bold">
-                        {Math.round(filteredReviews.filter(review => review.wouldRecommend === "Yes").length / filteredReviews.length * 100)}%
-                      </p>
                     </div>
                   </div>
                 </CardContent>

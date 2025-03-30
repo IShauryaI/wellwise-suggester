@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Star, ThumbsUp, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -388,10 +387,6 @@ const PharmaRepDashboard = () => {
                     </div>
                     <div>
                       <span className="font-semibold">Would Recommend:</span> {review.wouldRecommend}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <ThumbsUp className="h-4 w-4 text-gray-500" />
-                      <span>{review.helpfulCount} found this helpful</span>
                     </div>
                   </CardFooter>
                 </Card>

@@ -162,18 +162,14 @@ const PharmaRepDashboard = () => {
   
   const medicines = getMedicinesList();
   
-  const renderReadOnlyStars = (count, isSideEffect = false) => {
+  const renderReadOnlyStars = (count) => {
     return (
       <div className="flex">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
             className={`h-4 w-4 ${
-              star <= count 
-                ? isSideEffect 
-                  ? "fill-red-500 text-red-500" 
-                  : "fill-yellow-400 text-yellow-400" 
-                : "text-gray-300"
+              star <= count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
             }`}
           />
         ))}
@@ -371,10 +367,7 @@ const PharmaRepDashboard = () => {
                       </div>
                       <div>
                         <h4 className="text-xs text-gray-500 mb-1">Side Effects</h4>
-                        {renderReadOnlyStars(review.ratings.sideEffects, true)}
-                        <span className="ml-1 text-xs text-red-500 font-medium">
-                          {review.ratings.sideEffects}/5
-                        </span>
+                        {renderReadOnlyStars(review.ratings.sideEffects)}
                       </div>
                       <div>
                         <h4 className="text-xs text-gray-500 mb-1">Ease of Use</h4>
@@ -395,6 +388,9 @@ const PharmaRepDashboard = () => {
                     </div>
                     <div>
                       <span className="font-semibold">Duration:</span> {review.duration || "Not specified"}
+                    </div>
+                    <div>
+                      <span className="font-semibold">Would Recommend:</span> {review.wouldRecommend}
                     </div>
                   </CardFooter>
                 </Card>

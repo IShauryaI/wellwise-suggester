@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,8 @@ type Review = {
   date: string;
   medicineName: string;
   condition: string;
+  age?: string;
+  duration?: string;
   text: string;
   ratings: Rating;
   wouldRecommend: string;
@@ -31,6 +34,8 @@ const MedicineReview = () => {
   const navigate = useNavigate();
   const [medicineName, setMedicineName] = useState("");
   const [condition, setCondition] = useState("");
+  const [age, setAge] = useState("");
+  const [duration, setDuration] = useState("");
   const [ratings, setRatings] = useState<Rating>({
     effectiveness: 0,
     sideEffects: 0,
@@ -142,6 +147,8 @@ const MedicineReview = () => {
       toast.success("Your review has been submitted successfully!");
       setMedicineName("");
       setCondition("");
+      setAge("");
+      setDuration("");
       setRatings({
         effectiveness: 0,
         sideEffects: 0,
@@ -185,6 +192,28 @@ const MedicineReview = () => {
           <div className="space-y-2">
             <Label htmlFor="condition">What condition did you take this medication for?</Label>
             <Input id="condition" placeholder="E.g., Type 2 Diabetes, Hypertension, Allergies, etc." value={condition} onChange={e => setCondition(e.target.value)} />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="age">What's your age?</Label>
+              <Input 
+                id="age" 
+                placeholder="E.g., 35" 
+                value={age} 
+                onChange={e => setAge(e.target.value)} 
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="duration">For how long did you take this medication?</Label>
+              <Input 
+                id="duration" 
+                placeholder="E.g., 6 months, 2 years" 
+                value={duration} 
+                onChange={e => setDuration(e.target.value)} 
+              />
+            </div>
           </div>
           
           <div className="space-y-2">

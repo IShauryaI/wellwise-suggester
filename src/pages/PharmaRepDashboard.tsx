@@ -31,7 +31,8 @@ const reviews = [
     medicineName: "Metformin 500mg",
     condition: "Type 2 Diabetes",
     duration: "6 months",
-    text: "I've been taking Metformin for about 6 months now for my Type 2 Diabetes. It has helped control my blood sugar levels effectively, though it took about 2-3 weeks to see significant improvements. The first two weeks were challenging due to some digestive issues, but those subsided after my body adjusted to the medication.",
+    text: "I've been taking Metformin for about 6 months now for my Type 2 Diabetes. It has helped control my blood sugar levels effectively, though it took about 2-3 weeks to see significant improvements.",
+    sideEffects: "The first two weeks were challenging due to some digestive issues, but those subsided after my body adjusted to the medication.",
     ratings: {
       effectiveness: 4,
       sideEffects: 3,
@@ -49,7 +50,8 @@ const reviews = [
     medicineName: "Metformin 500mg",
     condition: "Type 2 Diabetes",
     duration: "3 months",
-    text: "This medication has been a game changer for my diabetes management. I experienced some stomach upset for the first few days, but that went away quickly. My A1C has dropped significantly in just 3 months.",
+    text: "This medication has been a game changer for my diabetes management.",
+    sideEffects: "I experienced some stomach upset for the first few days, but that went away quickly. My A1C has dropped significantly in just 3 months.",
     ratings: {
       effectiveness: 5,
       sideEffects: 4,
@@ -67,7 +69,8 @@ const reviews = [
     medicineName: "Lisinopril 10mg",
     condition: "Hypertension",
     duration: "3 months",
-    text: "I started taking Lisinopril about 3 months ago for high blood pressure. It's been quite effective at bringing my numbers down from 150/95 to around 125/80 consistently. The medication works well, but I did experience a persistent dry cough which is apparently a common side effect.",
+    text: "I started taking Lisinopril about 3 months ago for high blood pressure. It's been quite effective at bringing my numbers down from 150/95 to around 125/80 consistently.",
+    sideEffects: "The medication works well, but I did experience a persistent dry cough which is apparently a common side effect.",
     ratings: {
       effectiveness: 5,
       sideEffects: 2,
@@ -85,7 +88,8 @@ const reviews = [
     medicineName: "Lisinopril 10mg",
     condition: "Hypertension",
     duration: "2 months",
-    text: "Lisinopril worked well for my blood pressure but the cough was unbearable. Had to switch to another medication after 2 months. Would only recommend if other options don't work for you.",
+    text: "Lisinopril worked well for my blood pressure.",
+    sideEffects: "The cough was unbearable. Had to switch to another medication after 2 months. Would only recommend if other options don't work for you.",
     ratings: {
       effectiveness: 4,
       sideEffects: 1,
@@ -103,7 +107,8 @@ const reviews = [
     medicineName: "Cetirizine 10mg",
     condition: "Seasonal Allergies",
     duration: "Over 3 years",
-    text: "I've been using Cetirizine for my seasonal allergies for years now, and it consistently provides relief from my symptoms. Unlike some other antihistamines I've tried, this one doesn't make me feel drowsy, which is a huge plus since I take it daily during allergy season.",
+    text: "I've been using Cetirizine for my seasonal allergies for years now, and it consistently provides relief from my symptoms.",
+    sideEffects: "Unlike some other antihistamines I've tried, this one doesn't make me feel drowsy, which is a huge plus since I take it daily during allergy season.",
     ratings: {
       effectiveness: 5,
       sideEffects: 5,
@@ -121,7 +126,8 @@ const reviews = [
     medicineName: "Atorvastatin 20mg",
     condition: "High Cholesterol",
     duration: "About 1 year",
-    text: "Been taking Atorvastatin for about a year now. My cholesterol levels have improved dramatically. I did have some muscle pain in the beginning but it went away after a few weeks. Overall very satisfied with this medication.",
+    text: "Been taking Atorvastatin for about a year now. My cholesterol levels have improved dramatically.",
+    sideEffects: "I did have some muscle pain in the beginning but it went away after a few weeks. Overall very satisfied with this medication.",
     ratings: {
       effectiveness: 5,
       sideEffects: 3,
@@ -162,19 +168,14 @@ const PharmaRepDashboard = () => {
   
   const medicines = getMedicinesList();
   
-  const renderReadOnlyStars = (count, isForSideEffects = false) => {
-    const starColor = isForSideEffects ? "#ea384c" : "text-yellow-400"; // Red for side effects, yellow for others
+  const renderReadOnlyStars = (count) => {
     return (
       <div className="flex">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
             className={`h-4 w-4 ${
-              star <= count 
-                ? isForSideEffects 
-                  ? "fill-[#ea384c] text-[#ea384c]" 
-                  : "fill-yellow-400 text-yellow-400" 
-                : "text-gray-300"
+              star <= count ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
             }`}
           />
         ))}
@@ -365,14 +366,19 @@ const PharmaRepDashboard = () => {
                   <CardContent className="pb-2">
                     <p className="text-sm">{review.text}</p>
                     
+                    <div className="mt-4">
+                      <h4 className="text-xs font-medium text-gray-500 mb-1">Side Effects:</h4>
+                      <p className="text-sm text-[#ea384c]">{review.sideEffects}</p>
+                    </div>
+                    
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
                       <div>
                         <h4 className="text-xs text-gray-500 mb-1">Effectiveness</h4>
                         {renderReadOnlyStars(review.ratings.effectiveness)}
                       </div>
                       <div>
-                        <h4 className="text-xs text-gray-500 mb-1 text-[#ea384c]">Side Effects</h4>
-                        {renderReadOnlyStars(review.ratings.sideEffects, true)}
+                        <h4 className="text-xs text-gray-500 mb-1">Side Effects</h4>
+                        {renderReadOnlyStars(review.ratings.sideEffects)}
                       </div>
                       <div>
                         <h4 className="text-xs text-gray-500 mb-1">Ease of Use</h4>

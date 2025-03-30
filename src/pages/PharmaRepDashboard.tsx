@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Star, ThumbsUp, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ const reviews = [
     date: "March 15, 2025",
     medicineName: "Metformin 500mg",
     condition: "Type 2 Diabetes",
+    duration: "6 months",
     text: "I've been taking Metformin for about 6 months now for my Type 2 Diabetes. It has helped control my blood sugar levels effectively, though it took about 2-3 weeks to see significant improvements. The first two weeks were challenging due to some digestive issues, but those subsided after my body adjusted to the medication.",
     ratings: {
       effectiveness: 4,
@@ -44,6 +46,7 @@ const reviews = [
     date: "March 12, 2025",
     medicineName: "Metformin 500mg",
     condition: "Type 2 Diabetes",
+    duration: "3 months",
     text: "This medication has been a game changer for my diabetes management. I experienced some stomach upset for the first few days, but that went away quickly. My A1C has dropped significantly in just 3 months.",
     ratings: {
       effectiveness: 5,
@@ -60,6 +63,7 @@ const reviews = [
     date: "March 10, 2025",
     medicineName: "Lisinopril 10mg",
     condition: "Hypertension",
+    duration: "3 months",
     text: "I started taking Lisinopril about 3 months ago for high blood pressure. It's been quite effective at bringing my numbers down from 150/95 to around 125/80 consistently. The medication works well, but I did experience a persistent dry cough which is apparently a common side effect.",
     ratings: {
       effectiveness: 5,
@@ -76,6 +80,7 @@ const reviews = [
     date: "March 8, 2025",
     medicineName: "Lisinopril 10mg",
     condition: "Hypertension",
+    duration: "2 months",
     text: "Lisinopril worked well for my blood pressure but the cough was unbearable. Had to switch to another medication after 2 months. Would only recommend if other options don't work for you.",
     ratings: {
       effectiveness: 4,
@@ -92,6 +97,7 @@ const reviews = [
     date: "March 5, 2025",
     medicineName: "Cetirizine 10mg",
     condition: "Seasonal Allergies",
+    duration: "Over 3 years",
     text: "I've been using Cetirizine for my seasonal allergies for years now, and it consistently provides relief from my symptoms. Unlike some other antihistamines I've tried, this one doesn't make me feel drowsy, which is a huge plus since I take it daily during allergy season.",
     ratings: {
       effectiveness: 5,
@@ -108,6 +114,7 @@ const reviews = [
     date: "March 2, 2025",
     medicineName: "Atorvastatin 20mg",
     condition: "High Cholesterol",
+    duration: "About 1 year",
     text: "Been taking Atorvastatin for about a year now. My cholesterol levels have improved dramatically. I did have some muscle pain in the beginning but it went away after a few weeks. Overall very satisfied with this medication.",
     ratings: {
       effectiveness: 5,
@@ -333,17 +340,14 @@ const PharmaRepDashboard = () => {
               </Card>
             </div>
 
-            {/* Detailed Reviews */}
+            {/* Detailed Reviews - Modified to hide names and show only required info */}
             <div className="space-y-4">
               {filteredReviews.map((review) => (
                 <Card key={review.id} className="bg-slate-50">
                   <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-base">{review.reviewer}</CardTitle>
-                        <CardDescription>
-                          Reviewed on {review.date}
-                        </CardDescription>
+                        <CardTitle className="text-base">Review from {review.date}</CardTitle>
                       </div>
                       <div className="flex items-center">
                         {renderReadOnlyStars(review.ratings.satisfaction)}
@@ -378,6 +382,9 @@ const PharmaRepDashboard = () => {
                   <CardFooter className="flex flex-wrap gap-4 text-sm">
                     <div>
                       <span className="font-semibold">Condition:</span> {review.condition}
+                    </div>
+                    <div>
+                      <span className="font-semibold">Duration:</span> {review.duration || "Not specified"}
                     </div>
                     <div>
                       <span className="font-semibold">Would Recommend:</span> {review.wouldRecommend}

@@ -210,7 +210,7 @@ const PharmaRepDashboard = () => {
         <>
           {/* Dashboard Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <Card>
+            <Card className="hover-lift-effect bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900">
               <CardHeader className="pb-2">
                 <CardTitle>Total Reviews</CardTitle>
               </CardHeader>
@@ -220,7 +220,7 @@ const PharmaRepDashboard = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="hover-lift-effect bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900">
               <CardHeader className="pb-2">
                 <CardTitle>Average Satisfaction</CardTitle>
               </CardHeader>
@@ -232,7 +232,7 @@ const PharmaRepDashboard = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="hover-lift-effect bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900">
               <CardHeader className="pb-2">
                 <CardTitle>Medications Reviewed</CardTitle>
               </CardHeader>
@@ -244,8 +244,8 @@ const PharmaRepDashboard = () => {
           </div>
 
           {/* Medicines List */}
-          <Card>
-            <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2">
+          <Card className="shadow-md">
+            <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2 bg-slate-50 dark:bg-slate-800 border-b">
               <div>
                 <CardTitle>Reviewed Medications</CardTitle>
                 <CardDescription>Click on a medication to view patient reviews</CardDescription>
@@ -268,7 +268,7 @@ const PharmaRepDashboard = () => {
               <Table>
                 <TableCaption>A list of reviewed medications</TableCaption>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="bg-slate-50 dark:bg-slate-800">
                     <TableHead>Medication</TableHead>
                     <TableHead>Primary Condition</TableHead>
                     <TableHead>Reviews</TableHead>
@@ -278,7 +278,7 @@ const PharmaRepDashboard = () => {
                 </TableHeader>
                 <TableBody>
                   {filteredMedicines.map((medicine) => (
-                    <TableRow key={medicine.name} className="cursor-pointer hover:bg-slate-50">
+                    <TableRow key={medicine.name} className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50">
                       <TableCell className="font-medium">{medicine.name}</TableCell>
                       <TableCell>{medicine.primaryCondition}</TableCell>
                       <TableCell>{medicine.reviewCount}</TableCell>
@@ -293,6 +293,7 @@ const PharmaRepDashboard = () => {
                           variant="outline" 
                           size="sm" 
                           onClick={() => handleMedicineClick(medicine.name)}
+                          className="hover:bg-primary hover:text-white transition-colors"
                         >
                           View Reviews
                         </Button>
@@ -306,15 +307,15 @@ const PharmaRepDashboard = () => {
         </>
       ) : (
         /* Reviews for selected medicine */
-        <Card>
-          <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2">
+        <Card className="shadow-md">
+          <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2 bg-slate-50 dark:bg-slate-800 border-b">
             <div>
               <div className="flex items-center mb-2">
                 <Button 
                   variant="ghost" 
                   size="sm" 
                   onClick={handleBackToList} 
-                  className="mr-2 p-0 h-8 w-8"
+                  className="mr-2 p-0 h-8 w-8 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full"
                 >
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
@@ -325,7 +326,7 @@ const PharmaRepDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="mb-6">
-              <Card className="bg-slate-50">
+              <Card className="bg-gradient-to-r from-primary-light to-white dark:from-primary-dark/30 dark:to-slate-800 shadow-sm">
                 <CardContent className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -347,10 +348,10 @@ const PharmaRepDashboard = () => {
             </div>
 
             {/* Detailed Reviews - Modified to hide names and show only required info */}
-            <div className="space-y-4">
+            <div className="space-y-6">
               {filteredReviews.map((review) => (
-                <Card key={review.id} className="bg-slate-50">
-                  <CardHeader className="pb-2">
+                <Card key={review.id} className="hover-lift-effect overflow-hidden border border-slate-200 dark:border-slate-700">
+                  <CardHeader className="pb-2 bg-slate-50 dark:bg-slate-800 border-b">
                     <div className="flex justify-between items-start">
                       <div>
                         <CardTitle className="text-base">Review from {review.date}</CardTitle>
@@ -363,44 +364,44 @@ const PharmaRepDashboard = () => {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="pb-2">
-                    <p className="text-sm">{review.text}</p>
+                  <CardContent className="p-6">
+                    <p className="text-sm leading-relaxed">{review.text}</p>
                     
-                    <div className="mt-4">
-                      <h4 className="text-xs font-medium text-gray-500 mb-1">Side Effects:</h4>
-                      <p className="text-sm text-[#ea384c]">{review.sideEffects}</p>
+                    <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-md border-l-4 border-red-500">
+                      <h4 className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Side Effects:</h4>
+                      <p className="text-sm font-medium text-[#ea384c] dark:text-red-400">{review.sideEffects}</p>
                     </div>
                     
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-                      <div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-5 pt-4 border-t">
+                      <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-md">
                         <h4 className="text-xs text-gray-500 mb-1">Effectiveness</h4>
                         {renderReadOnlyStars(review.ratings.effectiveness)}
                       </div>
-                      <div>
+                      <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-md">
                         <h4 className="text-xs text-gray-500 mb-1">Side Effects</h4>
                         {renderReadOnlyStars(review.ratings.sideEffects)}
                       </div>
-                      <div>
+                      <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-md">
                         <h4 className="text-xs text-gray-500 mb-1">Ease of Use</h4>
                         {renderReadOnlyStars(review.ratings.easeOfUse)}
                       </div>
-                      <div>
+                      <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-md">
                         <h4 className="text-xs text-gray-500 mb-1">Overall</h4>
                         {renderReadOnlyStars(review.ratings.satisfaction)}
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="flex flex-wrap gap-4 text-sm">
-                    <div>
+                  <CardFooter className="bg-slate-50 dark:bg-slate-800/30 px-6 py-3 flex flex-wrap gap-4 text-sm">
+                    <div className="px-3 py-1 bg-white dark:bg-slate-700 rounded-full shadow-sm">
                       <span className="font-semibold">Age:</span> {review.age}
                     </div>
-                    <div>
+                    <div className="px-3 py-1 bg-white dark:bg-slate-700 rounded-full shadow-sm">
                       <span className="font-semibold">Condition:</span> {review.condition}
                     </div>
-                    <div>
+                    <div className="px-3 py-1 bg-white dark:bg-slate-700 rounded-full shadow-sm">
                       <span className="font-semibold">Duration:</span> {review.duration || "Not specified"}
                     </div>
-                    <div>
+                    <div className="px-3 py-1 bg-white dark:bg-slate-700 rounded-full shadow-sm">
                       <span className="font-semibold">Would Recommend:</span> {review.wouldRecommend}
                     </div>
                   </CardFooter>

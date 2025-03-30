@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Star, ThumbsUp, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ const reviews = [
   {
     id: "1",
     reviewer: "Sarah J.",
+    age: 45,
     date: "March 15, 2025",
     medicineName: "Metformin 500mg",
     condition: "Type 2 Diabetes",
@@ -42,6 +44,7 @@ const reviews = [
   {
     id: "4",
     reviewer: "David L.",
+    age: 52,
     date: "March 12, 2025",
     medicineName: "Metformin 500mg",
     condition: "Type 2 Diabetes",
@@ -59,6 +62,7 @@ const reviews = [
   {
     id: "2",
     reviewer: "Michael T.",
+    age: 61,
     date: "March 10, 2025",
     medicineName: "Lisinopril 10mg",
     condition: "Hypertension",
@@ -76,6 +80,7 @@ const reviews = [
   {
     id: "5",
     reviewer: "Jennifer K.",
+    age: 57,
     date: "March 8, 2025",
     medicineName: "Lisinopril 10mg",
     condition: "Hypertension",
@@ -93,6 +98,7 @@ const reviews = [
   {
     id: "3",
     reviewer: "Taylor W.",
+    age: 38,
     date: "March 5, 2025",
     medicineName: "Cetirizine 10mg",
     condition: "Seasonal Allergies",
@@ -110,6 +116,7 @@ const reviews = [
   {
     id: "6",
     reviewer: "Robert P.",
+    age: 64,
     date: "March 2, 2025",
     medicineName: "Atorvastatin 20mg",
     condition: "High Cholesterol",
@@ -373,6 +380,9 @@ const PharmaRepDashboard = () => {
                     </div>
                   </CardContent>
                   <CardFooter className="flex flex-wrap gap-4 text-sm">
+                    <div>
+                      <span className="font-semibold">Age:</span> {review.age}
+                    </div>
                     <div>
                       <span className="font-semibold">Condition:</span> {review.condition}
                     </div>

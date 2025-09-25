@@ -1,69 +1,62 @@
-# Welcome to your Lovable project
+# WellWise Suggester — Health Recommendation System
 
-## Project info
+[![Build Status](https://img.shields.io/github/workflow/status/IShauryaI/wellwise-suggester/CI)](https://github.com/IShauryaI/wellwise-suggester/actions)
+[![License](https://img.shields.io/github/license/IShauryaI/wellwise-suggester)](LICENSE)
 
-**URL**: https://lovable.dev/projects/09a67b48-c048-412f-aee5-6fa5211dd673
+## Overview
 
-## How can I edit this code?
+An intelligent health recommendation system that provides personalized wellness suggestions based on user health profiles and preferences. Built with React and TypeScript, featuring machine learning algorithms for health insights and lifestyle recommendations.
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- **Personalized Health Suggestions** - AI-driven recommendations based on user profile
+- **Wellness Analytics** - Health metrics tracking and trend analysis
+- **Lifestyle Guidance** - Nutrition, exercise, and mental health tips
+- **Progress Monitoring** - Goal setting and achievement tracking
+- **Interactive Dashboard** - Visual health insights and reports
+- **Responsive Design** - Cross-platform compatibility
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/09a67b48-c048-412f-aee5-6fa5211dd673) and start prompting.
+## Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+**Frontend**: TypeScript, React 18, Vite  
+**UI Framework**: Tailwind CSS, shadcn/ui  
+**State Management**: React Hook Form, Context API  
+**Build Tool**: Vite with SWC  
+**Deployment**: Vercel/Netlify
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- Node.js 18+
+- npm, yarn, or pnpm
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/IShauryaI/wellwise-suggester.git
 
-Follow these steps:
+# Navigate to project directory
+cd wellwise-suggester
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Install dependencies
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Available Scripts
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run lint       # Run ESLint
+npm run preview    # Preview production build
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Contributing
 
-**Use GitHub Codespaces**
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## License
 
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/09a67b48-c048-412f-aee5-6fa5211dd673) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.

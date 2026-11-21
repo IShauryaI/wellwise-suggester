@@ -19,7 +19,7 @@ const formSchema = z.object({
   sensitive: z.boolean(),
   age: z.string(),
   climate: z.enum(["dry", "humid", "temperate", "cold"]),
-  currentProducts: z.string().optional()
+  currentProducts: z.string().default("")
 });
 
 interface SkincareFormProps {
@@ -31,7 +31,7 @@ export function SkincareForm({ onSubmit, isLoading }: SkincareFormProps) {
   const [selectedConcerns, setSelectedConcerns] = useState<SkinConcern[]>([]);
   const [isSensitive, setIsSensitive] = useState(false);
   
-  const form = useForm<Skin>({
+  const form = useForm<z.input<typeof formSchema>, unknown, Skin>({
     resolver: zodResolver(formSchema),
     defaultValues: InitialFormState
   });
